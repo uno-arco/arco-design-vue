@@ -1,14 +1,19 @@
 {
-  "name": "@arco-design/web-vue",
-  "version": "2.58.0",
-  "description": "Arco Design Vue 2.0: A Vue.js 3 UI Library",
+  "name": "@uno-arco/web-vue",
+  "version": "2.58.1",
+  "description": "Uno Arco: community-maintained fork of Arco Design Vue",
   "keywords": [
     "arco",
+    "uno-arco",
     "vue"
   ],
-  "author": "ArcoDesign Team",
-  "homepage": "https://arco.design/vue",
+  "author": "Uno Arco",
+  "homepage": "https://github.com/uno-arco/arco-design-vue",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "main": "lib/index.js",
   "module": "es/index.js",
   "types": "es/index.d.ts",
@@ -21,7 +26,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arco-design/arco-design-vue.git"
+    "url": "git+https://github.com/uno-arco/arco-design-vue.git"
   },
   "sideEffects": [
     "dist/*",

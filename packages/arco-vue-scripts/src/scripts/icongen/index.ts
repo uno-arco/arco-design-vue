@@ -175,7 +175,7 @@ function buildType(data: IconData[]) {
   for (const iconData of data) {
     for (const item of iconData.list) {
       exports.push(
-        `${item.componentName}: typeof import('@arco-design/web-vue/es/icon')['${item.componentName}'];`
+        `${item.componentName}: typeof import('@uno-arco/web-vue/es/icon')['${item.componentName}'];`
       );
     }
   }

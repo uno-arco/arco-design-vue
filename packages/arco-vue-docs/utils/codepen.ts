@@ -1,11 +1,9 @@
-const CSS_EXTERNAL = [
-  'https://unpkg.com/@arco-design/web-vue@2.x/dist/arco.css',
-];
+const CSS_EXTERNAL = ['https://unpkg.com/@uno-arco/web-vue@2.x/dist/arco.css'];
 const JS_EXTERNAL = [
   'https://unpkg.com/vue@3.x/dist/vue.global.prod.js',
   'https://unpkg.com/dayjs@1.x/dayjs.min.js',
-  'https://unpkg.com/@arco-design/web-vue@2.x/dist/arco-vue.min.js',
-  'https://unpkg.com/@arco-design/web-vue@2.x/dist/arco-vue-icon.min.js',
+  'https://unpkg.com/@uno-arco/web-vue@2.x/dist/arco-vue.min.js',
+  'https://unpkg.com/@uno-arco/web-vue@2.x/dist/arco-vue-icon.min.js',
 ];
 
 const parseContent = (content: string) => {
@@ -20,9 +18,11 @@ const parseContent = (content: string) => {
           p2 = 'window.Vue';
           break;
         case '@arco-design/web-vue':
+        case '@uno-arco/web-vue':
           p2 = 'window.ArcoVue';
           break;
         case '@arco-design/web-vue/es/icon':
+        case '@uno-arco/web-vue/es/icon':
           p2 = 'window.ArcoVueIcon';
           break;
         default:

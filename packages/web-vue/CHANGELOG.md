@@ -2,6 +2,14 @@
 changelog: true
 ```
 
+## 2.58.1
+
+`2026-09-01`
+
+### 💎 Enhancement
+
+- Publish as `@uno-arco/web-vue`, a community-maintained fork of Arco Design Vue. Component APIs, `arco-` class prefix, and import paths via npm alias stay compatible.
+
 ## 2.58.0
 
 `2026-04-16`

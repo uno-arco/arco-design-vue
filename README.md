@@ -1,108 +1,65 @@
 <div align="center">
-  <a href="https://arco.design" target="_blank">
-    <img alt="Arco Design Logo" width="200" src="https://avatars.githubusercontent.com/u/64576149?s=200&v=4"/>
-  </a>
-</div>
-<div align="center">
-  <h1>Arco Design</h1>
-</div>
-
-<div align="center">
-
-A comprehensive Vue UI components library based on the [Arco Design](https://arco.design/) system.
-
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/arco-design/arco-design-vue/blob/main/LICENSE)
-
+  <h1>Uno Arco</h1>
+  <p>Community-maintained fork of <a href="https://github.com/arco-design/arco-design-vue">Arco Design Vue</a>.</p>
+  <p>
+    <a href="https://github.com/uno-arco/arco-design-vue/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
+    <a href="https://www.npmjs.com/package/@uno-arco/web-vue"><img alt="npm" src="https://img.shields.io/npm/v/@uno-arco/web-vue.svg" /></a>
+  </p>
+  <p>English | <a href="./README.zh-CN.md">简体中文</a></p>
 </div>
 
-<div align="center">
-
-English | [简体中文](./README.zh-CN.md)
-
-</div>
-
-# Features
-
-## Comprehensive
-
-With more than 60 crafted components that you can use out of the box.
-
-## Customizable theme
-
-Extensive theme tokens can be customized to build your own theme. Two ways of customization are supported:
-
-* [With less-loader](https://arco.design/vue/docs/theme)
-* [Design Lab](https://arco.design/themes) - Recommended!
-
-## TypeScript friendly
-
-All components are written in TypeScript so it's type friendly.
+This is **not** an official ByteDance / Arco Design project. It continues [arco-design/arco-design-vue](https://github.com/arco-design/arco-design-vue) under MIT: same component names (`a-button`), same CSS prefix (`arco-`), same theme tokens.
 
 # Installation
 
-Available as an [npm package](https://www.npmjs.com/package/@arco-design/web-vue)
-
 ```bash
-// with npm
-npm install @arco-design/web-vue
-
-// with yarn
-yarn add @arco-design/web-vue
-
-// with pnpm
-pnpm add @arco-design/web-vue
+npm install @uno-arco/web-vue
+# or
+pnpm add @uno-arco/web-vue
 ```
 
-# Examples
+Drop-in for existing apps (keep old import paths):
+
+```json
+{
+  "dependencies": {
+    "@arco-design/web-vue": "npm:@uno-arco/web-vue@^2.58.1"
+  }
+}
+```
+
+See [MIGRATION.md](./MIGRATION.md) for details.
+
+# Example
 
 ```typescript
 import { createApp } from 'vue'
-import ArcoVue from '@arco-design/web-vue';
+import ArcoVue from '@uno-arco/web-vue';
 import App from './App.vue';
-import '@arco-design/web-vue/dist/arco.css';
+import '@uno-arco/web-vue/dist/arco.css';
 
 const app = createApp(App);
 app.use(ArcoVue);
 app.mount('#app');
 ```
 
-# Useful Links
+# Features
 
-* [Documentation website](https://arco.design/)
-* [Dark mode](https://arco.design/vue/docs/dark)
-* [Theme customization](https://arco.design/vue/docs/theme)
-* [Figma component library](https://www.figma.com/file/FVu1DydEeXvJqXrkOb90Oi/ArcoDesign%E7%BB%84%E4%BB%B6%E8%AE%BE%E8%AE%A1_2.0?node-id=5472%3A308)
-* [Awesome Arco](https://github.com/arco-design/awesome-arco)
+- 60+ Vue 3 components
+- Theme tokens via Less (Design Lab themes still apply because CSS class names are unchanged)
+- TypeScript
 
-# Ecosystems
+# Links
 
-| Project               | Description                                             |
-| --------------------- | ------------------------------------------------------- |
-| [React Component Library] | A comprehensive React UI components library based on the Arco Design system |
-| [Design Lab] | A platform to create and manage your themes with ease. |
-| [Material Market] | A platform that provides massive high-quality customized materials to greatly boost development efficiency. |
-| [Icon Box] | One-stop platform to manage your icons. |
-| [Arco Pro] | A solution to quickly building applications from scratch. |
-
-[React Component Library]: https://arco.design/react/docs/start
-
-[Design Lab]: https://arco.design/themes
-
-[Material Market]: https://arco.design/material
-
-[Icon Box]: https://arco.design/iconbox
-
-[Arco Pro]: https://arco.design/pro/
+- [Docs (GitHub Pages)](https://uno-arco.github.io/arco-design-vue/)
+- [Upstream Arco Design Vue](https://github.com/arco-design/arco-design-vue)
+- [Official docs](https://arco.design/vue) (ByteDance)
+- [Figma](https://www.figma.com/file/FVu1DydEeXvJqXrkOb90Oi/ArcoDesign%E7%BB%84%E4%BB%B6%E8%AE%BE%E8%AE%A1_2.0?node-id=5472%3A308)
 
 # Contributing
 
-Developers interested in contributing should read the [Code of Conduct](./CODE_OF_CONDUCT.md) and
-the [Contributing Guide](./CONTRIBUTING.md).
-
-Thank you to all the people who already contributed to ArcoDesign!
-
-<a href="https://github.com/arco-design/arco-design-vue/graphs/contributors"><img src="https://contrib.rocks/image?repo=arco-design/arco-design-vue" /></a>
+Please read the [Code of Conduct](./CODE_OF_CONDUCT.md) and [Contributing Guide](./CONTRIBUTING.md).
 
 # License
 
-Ths project is [MIT licensed](./LICENSE).
+[MIT](./LICENSE). Original work © ByteDance; community changes © Uno Arco contributors.

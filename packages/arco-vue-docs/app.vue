@@ -15,15 +15,15 @@
         @close="handleCloseGlobalNotice"
       >
         <a
-          href="https://bytedance.feishu.cn/docx/doxcnHMY3EFM4N7GK8H2no1mZve"
-          rel="Arco Global Notice"
+          href="https://github.com/uno-arco/arco-design-vue"
+          rel="Uno Arco notice"
           target="_blank"
         >
           <span class="content">
-            Arco Toolbox Figma 插件工具全新发布，有奖公测中~
+            Uno Arco 是 Arco Design Vue 的社区维护版本，并非字节跳动官方项目。
           </span>
           <b>
-            查看更多
+            查看仓库
             <icon-right />
           </b>
         </a>
@@ -74,12 +74,12 @@ export default defineComponent({
     const showNav = ref(true);
     const showAnchor = ref(true);
     const showGlobalNotice = ref(
-      getLocalStorage('arco-global-notice') !== '23-hide'
+      getLocalStorage('uno-arco-global-notice') !== 'hide'
     );
 
     const handleCloseGlobalNotice = () => {
       showGlobalNotice.value = false;
-      setLocalStorage('arco-global-notice', '23-hide');
+      setLocalStorage('uno-arco-global-notice', 'hide');
     };
 
     const toggleNav = () => {

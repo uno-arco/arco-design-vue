@@ -8,9 +8,7 @@ import paths from '../utils/paths';
 
 const root = process.cwd();
 
-const base =
-  process.env.AssetsPublicPath ||
-  'https://lf-arcosite.bytecdn.com/obj/arcosites/arcodesign/vue/';
+const base = process.env.AssetsPublicPath || '/arco-design-vue/';
 
 export default defineConfig({
   mode: 'production',
@@ -26,6 +24,14 @@ export default defineConfig({
     alias: [
       {
         find: /^@web-vue\/(.*)/,
+        replacement: path.resolve(root, '../web-vue/$1'),
+      },
+      {
+        find: /^@arco-design\/web-vue$/,
+        replacement: path.resolve(root, '../web-vue'),
+      },
+      {
+        find: /^@arco-design\/web-vue\/(.*)/,
         replacement: path.resolve(root, '../web-vue/$1'),
       },
     ],

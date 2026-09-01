@@ -1,6 +1,8 @@
 
 > [English](./CONTRIBUTING.md) | 简体中文
 
+这是 [Uno Arco](https://github.com/uno-arco/arco-design-vue)（Arco Design Vue 社区 fork）。请向本仓库提交 Issue / PR，而不是官方仓库。
+
 # 贡献指南
 
 感谢你的宝贵时间。你的贡献将使这个项目变得更好！在提交贡献之前，请务必花点时间阅读下面的入门指南。

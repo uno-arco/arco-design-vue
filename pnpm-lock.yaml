@@ -164,6 +164,9 @@ importers:
         specifier: workspace:*
         version: link:../arco-vue-scripts
       '@arco-design/web-vue':
+        specifier: workspace:@uno-arco/web-vue@*
+        version: link:../web-vue
+      '@uno-arco/web-vue':
         specifier: workspace:*
         version: link:../web-vue
       '@stackblitz/sdk':

@@ -176,7 +176,7 @@ const transformToWebTypes = (
     $schema:
       'https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json',
     framework: 'vue',
-    name: '@arco-design/web-vue',
+    name: '@uno-arco/web-vue',
     version,
     contributions: {
       html: {

@@ -19,6 +19,8 @@ export default ({ name }: { name: string }): InlineConfig => {
           'vue',
           '@arco-design/web-vue',
           '@arco-design/web-vue/es/icon',
+          '@uno-arco/web-vue',
+          '@uno-arco/web-vue/es/icon',
         ],
         output: [
           {
@@ -29,6 +31,8 @@ export default ({ name }: { name: string }): InlineConfig => {
               'vue': 'Vue',
               '@arco-design/web-vue': 'ArcoVue',
               '@arco-design/web-vue/es/icon': 'ArcoVueIcon',
+              '@uno-arco/web-vue': 'ArcoVue',
+              '@uno-arco/web-vue/es/icon': 'ArcoVueIcon',
             },
           },
           {
@@ -39,6 +43,8 @@ export default ({ name }: { name: string }): InlineConfig => {
               'vue': 'Vue',
               '@arco-design/web-vue': 'ArcoVue',
               '@arco-design/web-vue/es/icon': 'ArcoVueIcon',
+              '@uno-arco/web-vue': 'ArcoVue',
+              '@uno-arco/web-vue/es/icon': 'ArcoVueIcon',
             },
             // @ts-ignore
             plugins: [terser()],

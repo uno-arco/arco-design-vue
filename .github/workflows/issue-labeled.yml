@@ -22,9 +22,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.issue.number }}
           body: |
-            我们完全同意该提议/反馈，欢迎直接在此仓库创建 Pull Request 来解决这个问题。贡献前请务必阅读[贡献指南](https://github.com/arco-design/arco-design-vue/blob/main/CONTRIBUTING.zh-CN.md)，Pull Request 时根据需改动内容填写[预设模板](https://github.com/arco-design/arco-design-vue/blob/main/.github/PULL_REQUEST_TEMPLATE.md)，我们会尽快进行 Review，感谢您的贡献！
+            我们完全同意该提议/反馈，欢迎直接在此仓库创建 Pull Request 来解决这个问题。贡献前请务必阅读[贡献指南](https://github.com/uno-arco/arco-design-vue/blob/main/CONTRIBUTING.zh-CN.md)，Pull Request 时根据需改动内容填写[预设模板](https://github.com/uno-arco/arco-design-vue/blob/main/.github/PULL_REQUEST_TEMPLATE.md)，我们会尽快进行 Review，感谢您的贡献！
 
-            We agree with this suggestion/feedback and welcome to create a Pull Request in this repository to help address the issue. Before contributing, please make sure to read the [Contributing Guide](https://github.com/arco-design/arco-design-vue/blob/main/CONTRIBUTING.md). When submitting a Pull Request, kindly use the appropriate [PR template](https://github.com/arco-design/arco-design-vue/blob/main/.github/PULL_REQUEST_TEMPLATE.md) based on the changes you’re making. We’ll review it as soon as possible. Thank you for your contribution!
+            We agree with this suggestion/feedback and welcome to create a Pull Request in this repository to help address the issue. Before contributing, please make sure to read the [Contributing Guide](https://github.com/uno-arco/arco-design-vue/blob/main/CONTRIBUTING.md). When submitting a Pull Request, kindly use the appropriate [PR template](https://github.com/uno-arco/arco-design-vue/blob/main/.github/PULL_REQUEST_TEMPLATE.md) based on the changes you’re making. We’ll review it as soon as possible. Thank you for your contribution!
 
       - name: Need more info
         if: github.event.label.name == '📄 Need more info'

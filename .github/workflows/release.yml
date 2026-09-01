@@ -1,20 +1,45 @@
-name: auto-release
-on: create
+name: release
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - name: Get the version
-        id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
 
-      - name: create-release
-        if: github.event.ref_type == 'tag'
-        uses: arco-design/arco-auto-release@main
+      - name: Setup node
+        uses: actions/setup-node@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          changelogPaths: 'packages/web-vue/CHANGELOG.md,packages/web-vue/CHANGELOG.zh-CN.md'
-          tagName: ${{ steps.get_version.outputs.VERSION }}
+          node-version: 18
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - run: pnpm i --frozen-lockfile
+        env:
+          HUSKY: 0
+
+      - run: pnpm run init
+
+      - name: Build
+        run: pnpm run build:component
+
+      - name: Publish
+        run: pnpm --filter @uno-arco/web-vue publish --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true

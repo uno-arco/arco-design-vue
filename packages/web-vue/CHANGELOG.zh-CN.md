@@ -2,6 +2,14 @@
 changelog: true
 ```
 
+## 2.58.1
+
+`2026-09-01`
+
+### 💎 功能优化
+
+- 以 `@uno-arco/web-vue` 发布，作为 Arco Design Vue 的社区维护版本。组件 API、`arco-` 类名前缀、以及通过 npm alias 的 import 路径保持兼容。
+
 ## 2.58.0
 
 `2026-04-16`

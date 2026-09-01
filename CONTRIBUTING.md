@@ -1,5 +1,8 @@
 
 > English | [简体中文](./CONTRIBUTING.zh-CN.md)
+
+This is [Uno Arco](https://github.com/uno-arco/arco-design-vue), a community fork of Arco Design Vue. Please open issues and pull requests here, not on the official repository.
+
 # Contributing
 
 Thank you for taking your time to contribute and make this project better! Here are some guidelines to help you get started. Please make sure to take a moment and read through them before submitting your contributions.
