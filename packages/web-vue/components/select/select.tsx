@@ -587,6 +587,19 @@ export default defineComponent({
     watch(modelValue, (value) => {
       if (isUndefined(value) || isNull(value)) {
         _value.value = multiple.value ? [] : (value as any);
+      } else {
+        const existingValueKeys = new Set(
+          Object.keys(_selectedOption.value || {})
+        );
+        const valueArray = multiple.value
+          ? (value as any[])
+          : ([value] as any[]);
+        const valueKeysToAdd = valueArray
+          .map((item) => getKeyFromValue(item, props.valueKey))
+          .filter((key) => !existingValueKeys.has(key));
+        if (valueKeysToAdd.length > 0) {
+          updateSelectedOption(valueKeysToAdd);
+        }
       }
     });
 

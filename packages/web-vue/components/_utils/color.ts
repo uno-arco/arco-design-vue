@@ -148,6 +148,15 @@ export const formatInputToRgb = (
 };
 
 export const formatInputToHSVA = (color: string) => {
+  if (!color || !String(color).trim()) {
+    // Empty input should not fall back to pure red (s=1,v=1).
+    return {
+      h: 0,
+      s: 0,
+      v: 1,
+      a: 1,
+    };
+  }
   const rgba = formatInputToRgb(color);
   if (rgba) {
     const hsv = rgbToHsv(rgba.r, rgba.g, rgba.b);
