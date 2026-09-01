@@ -732,13 +732,14 @@ export default defineComponent({
     const { componentRef: tbodyComRef, elementRef: tbodyRef } =
       useComponentRef('containerRef');
     const { componentRef: virtualComRef, elementRef: virtualRef } =
-      useComponentRef('viewportRef');
+      useComponentRef('containerRef');
     const { componentRef: theadComRef, elementRef: theadRef } =
       useComponentRef('containerRef');
     const containerElement = computed(() => {
       if (splitTable.value) {
         if (isVirtualList.value) {
-          return virtualRef.value;
+          // VirtualList root ($el) is the scroll container; prefer wired ref.
+          return virtualRef.value ?? tbodyRef.value;
         }
         return tbodyRef.value;
       }
@@ -2097,11 +2098,16 @@ export default defineComponent({
                     }) => renderRecord(item, index),
                   }}
                   ref={(ins: any) => {
-                    if (ins?.$el) tbodyRef.value = ins.$el;
+                    virtualComRef.value = ins;
+                    const scrollEl =
+                      ins?.$refs?.containerRef ?? ins?.containerRef ?? ins?.$el;
+                    if (scrollEl) {
+                      tbodyRef.value = scrollEl;
+                    }
                   }}
                   class={`${prefixCls}-body`}
                   data={flattenData.value}
-                  itemKey="_key"
+                  itemKey="key"
                   component={{
                     list: 'table',
                     content: 'tbody',

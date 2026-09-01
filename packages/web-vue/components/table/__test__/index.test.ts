@@ -115,4 +115,28 @@ describe('Table', () => {
     expect(testSortRes.currentDataSource[0].key).toBe('5');
     expect(testSortRes.currentDataSource[4].key).toBe('1');
   });
+
+  test('virtual list renders rows with stable keys', async () => {
+    const data = reactive(
+      Array.from({ length: 40 }, (_, index) => ({
+        key: `row-${index}`,
+        name: `User ${index}`,
+        age: index,
+      }))
+    );
+    const wrapper = mount(Table as any, {
+      props: {
+        columns: demoColumns,
+        data,
+        pagination: false,
+        virtualListProps: { height: 200 },
+      },
+    });
+    await nextTick();
+    expect(wrapper.find('.arco-virtual-list').exists()).toBe(true);
+    const rows = wrapper.findAll('.arco-table-tr');
+    expect(rows.length).toBeGreaterThan(0);
+    expect(rows.length).toBeLessThan(40);
+    expect(wrapper.text()).toContain('User 0');
+  });
 });
