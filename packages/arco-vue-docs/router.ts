@@ -789,7 +789,8 @@ routes.push({ path: '/:pathMatch(.*)*', redirect: '/vue/docs/start' });
 nProgress.configure({ minimum: 0.4, showSpinner: false });
 
 const router = createRouter({
-  history: createWebHistory(),
+  // GitHub Pages is served under /arco-design-vue/ (Vite `base` → import.meta.env.BASE_URL).
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   scrollBehavior(to, from, savedPosition) {
     // Always scroll to the top

@@ -38,6 +38,10 @@ jobs:
       - name: Build site
         run: NODE_OPTIONS=--max-old-space-size=8192 AssetsPublicPath=/arco-design-vue/ pnpm run build:site
 
+      # SPA deep links: GitHub Pages has no history fallback; serve the app shell as 404.html.
+      - name: Add GitHub Pages SPA fallback
+        run: cp packages/arco-vue-docs/dist/index.html packages/arco-vue-docs/dist/404.html
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
