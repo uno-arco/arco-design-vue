@@ -4,6 +4,7 @@
     ref="containerRef"
     :class="prefixCls"
     :style="style"
+    v-bind="scrollbarBind"
     @scroll="onScroll"
   >
     <Component
@@ -57,7 +58,9 @@ import { useSize } from './hooks/use-size';
 import VirtualListItem from './virtual-list-item';
 import { getPrefixCls } from '../../_utils/global-config';
 import { ScrollOptions } from './interface';
-import { isNumber, isObject } from '../../_utils/is';
+import { isComponentInstance, isNumber, isObject } from '../../_utils/is';
+import Scrollbar, { ScrollbarProps } from '../../scrollbar';
+import { useScrollbar } from '../../_hooks/use-scrollbar';
 
 export default defineComponent({
   name: 'VirtualList',
@@ -105,32 +108,59 @@ export default defineComponent({
       type: String,
       default: 'content',
     },
+    /**
+     * @zh 是否开启虚拟滚动条 / 传入滚动条配置
+     * @en Whether to enable the virtual scrollbar, or pass scrollbar props
+     */
+    scrollbar: {
+      type: [Boolean, Object] as PropType<boolean | ScrollbarProps>,
+      default: false,
+    },
   },
   emits: {
     scroll: (ev: Event) => true,
     reachBottom: (ev: Event) => true,
   },
   setup(props, { emit }) {
-    const { data, itemKey, fixedSize, estimatedSize, buffer, height } =
-      toRefs(props);
+    const {
+      data,
+      itemKey,
+      fixedSize,
+      estimatedSize,
+      buffer,
+      height,
+      scrollbar,
+    } = toRefs(props);
     const prefixCls = getPrefixCls('virtual-list');
+    const { displayScrollbar, scrollbarProps } = useScrollbar(scrollbar);
+
     const mergedComponent = computed(() => {
-      if (isObject(props.component)) {
+      const base = isObject(props.component)
+        ? {
+            container: 'div',
+            list: 'div',
+            content: 'div',
+            ...props.component,
+          }
+        : {
+            container: props.component,
+            list: 'div',
+            content: 'div',
+          };
+      if (displayScrollbar.value) {
         return {
-          container: 'div',
-          list: 'div',
-          content: 'div',
-          ...props.component,
+          ...base,
+          container: Scrollbar,
         };
       }
-      return {
-        container: props.component,
-        list: 'div',
-        content: 'div',
-      };
+      return base;
     });
 
-    const containerRef = ref<HTMLElement>();
+    const scrollbarBind = computed(() =>
+      displayScrollbar.value ? scrollbarProps.value : undefined
+    );
+
+    const containerRef = ref();
     const contentRef = ref<HTMLElement>();
 
     const style = computed(() => {
@@ -172,6 +202,23 @@ export default defineComponent({
       return data.value.slice(start.value, end.value);
     });
 
+    const getScrollElement = (): HTMLElement | undefined => {
+      const el = containerRef.value;
+      if (!el) {
+        return undefined;
+      }
+      if (el instanceof HTMLElement) {
+        return el;
+      }
+      if (isComponentInstance(el)) {
+        const inner = el.$refs?.containerRef;
+        if (inner instanceof HTMLElement) {
+          return inner;
+        }
+      }
+      return undefined;
+    };
+
     const onScroll = (ev: Event) => {
       const { scrollTop, scrollHeight, offsetHeight } =
         ev.target as HTMLElement;
@@ -190,20 +237,21 @@ export default defineComponent({
     };
 
     const scrollTo = (options: ScrollOptions) => {
-      if (containerRef.value) {
+      const scrollEl = getScrollElement();
+      if (scrollEl) {
         if (isNumber(options)) {
-          containerRef.value.scrollTop = options;
+          scrollEl.scrollTop = options;
         } else {
-          const { align = 'top' } = options;
           const _index =
             options.index ?? dataKeys.value.indexOf(options.key ?? '');
           setStart(_index - buffer.value);
-          containerRef.value.scrollTop = getScrollOffset(_index);
+          scrollEl.scrollTop = getScrollOffset(_index);
           nextTick(() => {
-            if (containerRef.value) {
+            const latest = getScrollElement();
+            if (latest) {
               const _scrollTop = getScrollOffset(_index);
-              if (_scrollTop !== containerRef.value.scrollTop) {
-                containerRef.value.scrollTop = _scrollTop;
+              if (_scrollTop !== latest.scrollTop) {
+                latest.scrollTop = _scrollTop;
               }
             }
           });
@@ -223,8 +271,10 @@ export default defineComponent({
       hasItemSize,
       start,
       scrollTo,
+      getScrollElement,
       style,
       mergedComponent,
+      scrollbarBind,
     };
   },
 });

@@ -738,8 +738,17 @@ export default defineComponent({
     const containerElement = computed(() => {
       if (splitTable.value) {
         if (isVirtualList.value) {
-          // VirtualList root ($el) is the scroll container; prefer wired ref.
-          return virtualRef.value ?? tbodyRef.value;
+          // Prefer the real scroll HTMLElement (div or Scrollbar container).
+          const fromVirtual =
+            (
+              virtualComRef.value as
+                | { getScrollElement?: () => HTMLElement | undefined }
+                | undefined
+            )?.getScrollElement?.() ?? virtualRef.value;
+          return (
+            (fromVirtual instanceof HTMLElement ? fromVirtual : undefined) ??
+            (tbodyRef.value instanceof HTMLElement ? tbodyRef.value : undefined)
+          );
         }
         return tbodyRef.value;
       }
@@ -2101,7 +2110,11 @@ export default defineComponent({
                   ref={(ins: any) => {
                     virtualComRef.value = ins;
                     const scrollEl =
-                      ins?.$refs?.containerRef ?? ins?.containerRef ?? ins?.$el;
+                      ins?.getScrollElement?.() ??
+                      (ins?.$refs?.containerRef instanceof HTMLElement
+                        ? ins.$refs.containerRef
+                        : ins?.$refs?.containerRef?.$refs?.containerRef) ??
+                      ins?.$el;
                     if (scrollEl) {
                       tbodyRef.value = scrollEl;
                     }
@@ -2120,6 +2133,7 @@ export default defineComponent({
                   paddingPosition="list"
                   height="auto"
                   {...props.virtualListProps}
+                  scrollbar={scrollbar.value}
                   onScroll={onTbodyScroll}
                 />
               ) : (

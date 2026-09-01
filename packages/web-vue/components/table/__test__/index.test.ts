@@ -141,6 +141,29 @@ describe('Table', () => {
     expect(wrapper.text()).toContain('User 0');
   });
 
+  test('virtual list uses custom scrollbar when enabled', async () => {
+    const data = reactive(
+      Array.from({ length: 30 }, (_, index) => ({
+        key: `row-${index}`,
+        name: `User ${index}`,
+        age: index,
+      }))
+    );
+    const wrapper = mount(Table as any, {
+      props: {
+        columns: demoColumns,
+        data,
+        pagination: false,
+        scrollbar: true,
+        virtualListProps: { height: 200 },
+      },
+    });
+    await nextTick();
+    expect(wrapper.find('.arco-scrollbar').exists()).toBe(true);
+    expect(wrapper.find('.arco-scrollbar-container').exists()).toBe(true);
+    expect(wrapper.find('.arco-virtual-list').exists()).toBe(true);
+  });
+
   test('fixed column offsets prefer measured widths', () => {
     const columns: TableColumnData[] = [
       { title: 'A', dataIndex: 'a', width: 100, fixed: 'left' },
