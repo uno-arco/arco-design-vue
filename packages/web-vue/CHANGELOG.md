@@ -2,6 +2,49 @@
 changelog: true
 ```
 
+## 2.59.0
+
+`2026-09-01`
+
+Community maintenance release: land the remaining solvable upstream bugs after `2.58.2`. Hard items (e.g. Table `span-method` + virtual list [#3666](https://github.com/arco-design/arco-design-vue/issues/3666)) stay unsupported and are documented.
+
+### 🆕 Feature
+
+- **table:** Expose `clearSelected()` to clear cross-page selection (`selectAll(false)` remains current-page only).
+- **image:** Add `img-class` for the inner `<img>` element. ([#3080](https://github.com/arco-design/arco-design-vue/pull/3080))
+- **popover:** Add `disabled` for Tooltip parity.
+
+### 🐛 BugFix
+
+- **color-picker:** Fix preset / recent color formatting; empty value no longer renders as red. ([#3589](https://github.com/arco-design/arco-design-vue/pull/3589), [#3523](https://github.com/arco-design/arco-design-vue/issues/3523))
+- **overflow-list:** Fix flicker at critical container widths. ([#3359](https://github.com/arco-design/arco-design-vue/pull/3359))
+- **select:** Keep label in sync when `v-model` and `options` update together. ([#3213](https://github.com/arco-design/arco-design-vue/pull/3213))
+- **table:** Fix virtual-list `itemKey` and scroll-container refs for fixed-column detection.
+- **table:** Use measured header widths for sticky fixed-column offsets. ([#3606](https://github.com/arco-design/arco-design-vue/issues/3606))
+- **table:** Support custom `scrollbar` on the virtual-list body.
+- **table:** Fix footer missing under scroll / spin layout. ([#3419](https://github.com/arco-design/arco-design-vue/pull/3419), [#3242](https://github.com/arco-design/arco-design-vue/issues/3242))
+- **table:** Hide redundant tfoot horizontal scrollbar. ([#3497](https://github.com/arco-design/arco-design-vue/pull/3497), [#3494](https://github.com/arco-design/arco-design-vue/issues/3494))
+- **table:** Clip header radius to the container. ([#3378](https://github.com/arco-design/arco-design-vue/pull/3378))
+- **table:** Fix tree-table header half-checked state when `checkStrictly` is false. ([#3543](https://github.com/arco-design/arco-design-vue/issues/3543))
+- **cascader:** Prevent search freezes on large option trees (debounce, result cap, virtual search panel). ([#3641](https://github.com/arco-design/arco-design-vue/issues/3641))
+- **cascader:** Allow selecting a leaf after `load-more` sets `isLeaf`. ([#3604](https://github.com/arco-design/arco-design-vue/issues/3604))
+- **cascader:** Enter on a non-leaf only expands the path when `checkStrictly` is false. ([#3638](https://github.com/arco-design/arco-design-vue/issues/3638))
+- **cascader-panel:** Sync selection path from `v-model` on mount. ([#3615](https://github.com/arco-design/arco-design-vue/issues/3615))
+- **trigger:** Close popup when `updateAtScroll` trigger leaves the viewport. ([#3623](https://github.com/arco-design/arco-design-vue/issues/3623))
+- **typography:** Avoid ResizeObserver loop with ellipsis tooltip (keep Tooltip mounted, toggle `disabled`). ([#3660](https://github.com/arco-design/arco-design-vue/issues/3660))
+- **drawer / modal:** Lock body scroll with `padding-right` instead of changing `width` (iframe-safe). ([#3601](https://github.com/arco-design/arco-design-vue/issues/3601))
+- **time-picker:** Emit `clear` when the clear button is clicked. ([#3602](https://github.com/arco-design/arco-design-vue/issues/3602))
+- **affix:** Keep content width flexible after pinning. ([#2937](https://github.com/arco-design/arco-design-vue/pull/2937))
+- **input-number:** Block scientific-notation `e` / `E` input. ([#3618](https://github.com/arco-design/arco-design-vue/issues/3618))
+- **tree:** Do not overwrite user `dataTransfer` on drag start. ([#3249](https://github.com/arco-design/arco-design-vue/pull/3249))
+- **verification-code:** Fix `focus is not a function` when focusing inputs. ([#3033](https://github.com/arco-design/arco-design-vue/pull/3033))
+- **table-column:** Allow `title` to be a `RenderFunction`. ([#3476](https://github.com/arco-design/arco-design-vue/pull/3476))
+- **input-search:** Declare and forward `placeholder`. ([#3123](https://github.com/arco-design/arco-design-vue/pull/3123))
+
+### 💎 Enhancement
+
+- Document that Table `span-method` / `span-all` is mutually exclusive with virtual list. ([#3666](https://github.com/arco-design/arco-design-vue/issues/3666))
+
 ## 2.58.2
 
 `2026-09-01`

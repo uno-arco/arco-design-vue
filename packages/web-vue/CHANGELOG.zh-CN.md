@@ -2,6 +2,49 @@
 changelog: true
 ```
 
+## 2.59.0
+
+`2026-09-01`
+
+社区维护版本：在 `2.58.2` 之后把仍可解决的上游问题尽量收干净。难项（例如 Table `span-method` + 虚拟列表 [#3666](https://github.com/arco-design/arco-design-vue/issues/3666)）仍不支持，并已在文档中说明。
+
+### 🆕 新增功能
+
+- **table:** 新增 `clearSelected()`，用于清空跨页选中（`selectAll(false)` 仍只作用于当前页）。
+- **image:** 新增 `img-class`，用于设置内部 `<img>` 的类名。([#3080](https://github.com/arco-design/arco-design-vue/pull/3080))
+- **popover:** 新增 `disabled`，与 Tooltip 对齐。
+
+### 🐛 问题修复
+
+- **color-picker:** 修复预设/最近颜色格式化；空值不再显示成红色。([#3589](https://github.com/arco-design/arco-design-vue/pull/3589), [#3523](https://github.com/arco-design/arco-design-vue/issues/3523))
+- **overflow-list:** 修复临界宽度下持续闪烁。([#3359](https://github.com/arco-design/arco-design-vue/pull/3359))
+- **select:** 修复同时更新 `v-model` 与 `options` 后展示不同步。([#3213](https://github.com/arco-design/arco-design-vue/pull/3213))
+- **table:** 修复虚拟列表 `itemKey` 与滚动容器引用，保证固定列滚动检测正常。
+- **table:** 固定列 sticky 偏移改用表头实测宽度。([#3606](https://github.com/arco-design/arco-design-vue/issues/3606))
+- **table:** 虚拟列表 body 支持自定义 `scrollbar`。
+- **table:** 修复滚动/Spin 布局下 footer 丢失。([#3419](https://github.com/arco-design/arco-design-vue/pull/3419), [#3242](https://github.com/arco-design/arco-design-vue/issues/3242))
+- **table:** 隐藏 tfoot 多余横向滚动条。([#3497](https://github.com/arco-design/arco-design-vue/pull/3497), [#3494](https://github.com/arco-design/arco-design-vue/issues/3494))
+- **table:** 表头圆角与容器贴合。([#3378](https://github.com/arco-design/arco-design-vue/pull/3378))
+- **table:** 修复树形表格在 `checkStrictly=false` 时表头半选状态。([#3543](https://github.com/arco-design/arco-design-vue/issues/3543))
+- **cascader:** 大数据量搜索防卡死（防抖、结果上限、搜索面板虚拟列表）。([#3641](https://github.com/arco-design/arco-design-vue/issues/3641))
+- **cascader:** `load-more` 将节点标为叶子后可正常选中。([#3604](https://github.com/arco-design/arco-design-vue/issues/3604))
+- **cascader:** 非严格模式下 Enter 在非叶子节点仅展开路径。([#3638](https://github.com/arco-design/arco-design-vue/issues/3638))
+- **cascader-panel:** 挂载时根据 `v-model` 同步选中路径。([#3615](https://github.com/arco-design/arco-design-vue/issues/3615))
+- **trigger:** `updateAtScroll` 触发元素滚出可视区域后关闭弹出层。([#3623](https://github.com/arco-design/arco-design-vue/issues/3623))
+- **typography:** 修复省略号 Tooltip 触发 ResizeObserver 死循环。([#3660](https://github.com/arco-design/arco-design-vue/issues/3660))
+- **drawer / modal:** 锁定滚动改为设置 `padding-right`，避免改 `width` 导致 iframe 变形。([#3601](https://github.com/arco-design/arco-design-vue/issues/3601))
+- **time-picker:** 点击清除按钮时正确触发 `clear`。([#3602](https://github.com/arco-design/arco-design-vue/issues/3602))
+- **affix:** 固定后内容宽度可随内容变化。([#2937](https://github.com/arco-design/arco-design-vue/pull/2937))
+- **input-number:** 禁止输入科学计数法的 `e` / `E`。([#3618](https://github.com/arco-design/arco-design-vue/issues/3618))
+- **tree:** 拖拽开始时不再覆盖用户自定义的 `dataTransfer`。([#3249](https://github.com/arco-design/arco-design-vue/pull/3249))
+- **verification-code:** 修复聚焦时报 `focus is not a function`。([#3033](https://github.com/arco-design/arco-design-vue/pull/3033))
+- **table-column:** `title` 支持 `RenderFunction`。([#3476](https://github.com/arco-design/arco-design-vue/pull/3476))
+- **input-search:** 声明并透传 `placeholder`。([#3123](https://github.com/arco-design/arco-design-vue/pull/3123))
+
+### 💎 功能优化
+
+- 文档标明 Table `span-method` / `span-all` 与虚拟列表互斥。([#3666](https://github.com/arco-design/arco-design-vue/issues/3666))
+
 ## 2.58.2
 
 `2026-09-01`
