@@ -182,4 +182,41 @@ describe('Cascader', () => {
     const panel = wrapper.findComponent({ name: 'CascaderSearchPanel' });
     expect(panel.find('.arco-virtual-list').exists()).toBe(true);
   });
+
+  test('can select after load-more marks option as leaf', async () => {
+    const lazyOptions = [
+      {
+        value: 'beijing',
+        label: 'Beijing',
+        children: [
+          {
+            value: 'chaoyang',
+            label: 'ChaoYang',
+          },
+        ],
+      },
+    ];
+    const wrapper = mount(Cascader, {
+      props: {
+        options: lazyOptions,
+        loadMore: (option: any, done: (children: any[]) => void) => {
+          option.isLeaf = true;
+          done([]);
+        },
+      },
+    });
+
+    await wrapper.find('input').trigger('click');
+    await nextTick();
+    const panel = wrapper.findComponent({ name: 'BaseCascaderPanel' });
+    await panel.find('.arco-cascader-option').trigger('click');
+    await nextTick();
+    const leaf = panel.findAll('.arco-cascader-option')[1];
+    await leaf.trigger('click');
+    await nextTick();
+    // First click triggers load-more; option becomes leaf
+    await leaf.trigger('click');
+    await nextTick();
+    expect(wrapper.emitted('change')?.at(-1)).toEqual(['chaoyang']);
+  });
 });

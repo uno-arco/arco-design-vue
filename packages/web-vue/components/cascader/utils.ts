@@ -91,13 +91,20 @@ export const getOptionInfos = (
           (level ?? 1) + 1
         );
       } else if (enabledLazyLoad && !data.isLeaf) {
-        data.isLeaf = false;
         if (lazyLoadOptions[key]) {
-          data.children = travelOptions(
-            lazyLoadOptions[key],
-            data,
-            (level ?? 1) + 1
-          );
+          if (lazyLoadOptions[key].length === 0) {
+            // load-more resolved with no children → treat as leaf
+            data.isLeaf = true;
+          } else {
+            data.isLeaf = false;
+            data.children = travelOptions(
+              lazyLoadOptions[key],
+              data,
+              (level ?? 1) + 1
+            );
+          }
+        } else {
+          data.isLeaf = false;
         }
       } else {
         data.isLeaf = true;

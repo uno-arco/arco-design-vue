@@ -31,7 +31,6 @@ export default defineComponent({
     );
 
     const isLoading = ref(false);
-    const events: Record<string, any> = {};
 
     const handlePathChange = (ev: Event) => {
       if (isFunction(cascaderCtx.loadMore) && !props.option.isLeaf) {
@@ -51,24 +50,34 @@ export default defineComponent({
       cascaderCtx.setSelectedPath?.(props.option.key);
     };
 
-    if (!props.option.disabled) {
-      events.onMouseenter = [
-        () => cascaderCtx.setActiveKey?.(props.option.key),
-      ];
-      events.onMouseleave = () => cascaderCtx.setActiveKey?.();
-      events.onClick = [];
-      if (cascaderCtx.expandTrigger === 'hover') {
-        events.onMouseenter.push((ev: Event) => handlePathChange(ev));
-      } else {
-        events.onClick.push((ev: Event) => handlePathChange(ev));
+    const handleClick = (ev: Event) => {
+      if (props.option.disabled) {
+        return;
       }
+      if (cascaderCtx.expandTrigger !== 'hover') {
+        handlePathChange(ev);
+      }
+      // Re-read isLeaf on each click so lazy-load flipping isLeaf=true can select.
       if (props.option.isLeaf && !props.multiple) {
-        events.onClick.push((ev: Event) => {
-          handlePathChange(ev);
-          cascaderCtx.onClickOption?.(props.option);
-        });
+        cascaderCtx.onClickOption?.(props.option);
       }
-    }
+    };
+
+    const handleMouseEnter = (ev: Event) => {
+      if (props.option.disabled) {
+        return;
+      }
+      cascaderCtx.setActiveKey?.(props.option.key);
+      if (cascaderCtx.expandTrigger === 'hover') {
+        handlePathChange(ev);
+      }
+    };
+
+    const handleMouseLeave = () => {
+      if (!props.option.disabled) {
+        cascaderCtx.setActiveKey?.();
+      }
+    };
 
     const cls = computed(() => [
       prefixCls,
@@ -124,7 +133,9 @@ export default defineComponent({
         aria-expanded={!props.option.isLeaf && props.active}
         title={props.option.label}
         class={cls.value}
-        {...events}
+        onClick={handleClick}
+        onMouseenter={handleMouseEnter}
+        onMouseleave={handleMouseLeave}
       >
         {props.multiple && (
           <Checkbox
