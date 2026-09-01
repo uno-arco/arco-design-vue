@@ -405,6 +405,7 @@ export default defineComponent({
                     preventFocus={true}
                     popupVisible={computedPopupVisible.value}
                     clickToClose={false}
+                    updateAtScroll
                     onPopupVisibleChange={handlePopupVisibleChange}
                   >
                     <span>@</span>
@@ -428,6 +429,7 @@ export default defineComponent({
           autoFitPopupWidth
           autoFitTransformOrigin
           disabled={mergedDisabled.value}
+          updateAtScroll
           onPopupVisibleChange={handlePopupVisibleChange}
         >
           <ArcoInput

@@ -261,6 +261,7 @@ export default defineComponent({
           popupOffset={4}
           disabled={props.disabled}
           onPopupVisibleChange={onPopupVisibleChange}
+          updateAtScroll
           {...props.triggerProps}
         >
           {slots.default ? slots.default() : renderInput()}

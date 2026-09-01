@@ -998,6 +998,7 @@ export default defineComponent({
         clickToClose={!(props.allowSearch || props.allowCreate)}
         popupContainer={props.popupContainer}
         onPopupVisibleChange={handlePopupVisibleChange}
+        updateAtScroll
         {...props.triggerProps}
       >
         {slots.trigger?.() ?? (

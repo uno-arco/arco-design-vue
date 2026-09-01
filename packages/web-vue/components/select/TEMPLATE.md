@@ -136,11 +136,10 @@ export default {
 ```
 
 ### 滚动容器中的下拉菜单分离问题
-`Select` 组件默认没有开启容器滚动的事件监听功能，如果遇到在滚动容器中下拉菜单分离的问题，可以手动开启内部 `Trigger` 组件的 `updateAtScroll` 功能。
-如果是在全局环境中存在此种情况，可以使用 `ConfigProvider` 组件默认开启此属性。
+`Select` 默认开启内部 `Trigger` 的 `updateAtScroll`，在滚动容器中会跟随更新弹出层位置。若不需要该行为，可通过 `trigger-props` 关闭：
 
 ```vue
-<a-select :trigger-props="{updateAtScroll:true}"></a-select>
+<a-select :trigger-props="{ updateAtScroll: false }"></a-select>
 ```
 
 ---
@@ -193,11 +192,10 @@ export default {
 ```
 
 ### Dropdown menu separation issue in scroll container
-The `Select` component does not enable the container scrolling event monitoring function by default. If you encounter the problem of separating the drop-down menu in the scrolling container, you can manually enable the `updateAtScroll` function of the internal `Trigger` component.
-If this is the case in the global environment, you can use the `ConfigProvider` component to enable this property by default.
+`Select` enables `updateAtScroll` on the internal `Trigger` by default so the popup follows scroll containers. To disable:
 
 ```vue
-<a-select :trigger-props="{updateAtScroll:true}"></a-select>
+<a-select :trigger-props="{ updateAtScroll: false }"></a-select>
 ```
 
 ---

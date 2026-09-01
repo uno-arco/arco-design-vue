@@ -6,7 +6,7 @@
     auto-fit-transform-origin
     :click-to-close="false"
     :popup-offset="4"
-    v-bind="triggerProps"
+    v-bind="{ updateAtScroll: true, ...triggerProps }"
     :unmount-on-close="unmountOnClose"
     :position="position"
     :disabled="triggerDisabled || readonly"

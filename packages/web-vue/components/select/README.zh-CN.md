@@ -245,9 +245,8 @@ export default {
 ```
 
 ### 滚动容器中的下拉菜单分离问题
-`Select` 组件默认没有开启容器滚动的事件监听功能，如果遇到在滚动容器中下拉菜单分离的问题，可以手动开启内部 `Trigger` 组件的 `updateAtScroll` 功能。
-如果是在全局环境中存在此种情况，可以使用 `ConfigProvider` 组件默认开启此属性。
+`Select` 默认开启内部 `Trigger` 的 `updateAtScroll`，在滚动容器中会跟随更新弹出层位置。若不需要该行为，可通过 `trigger-props` 关闭：
 
 ```vue
-<a-select :trigger-props="{updateAtScroll:true}"></a-select>
+<a-select :trigger-props="{ updateAtScroll: false }"></a-select>
 ```

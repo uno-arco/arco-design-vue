@@ -1,6 +1,6 @@
 <template>
   <trigger
-    v-bind="triggerProps"
+    v-bind="{ updateAtScroll: true, ...triggerProps }"
     trigger="click"
     animation-name="slide-dynamic-origin"
     auto-fit-transform-origin

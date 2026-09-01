@@ -247,9 +247,8 @@ export default {
 ```
 
 ### Dropdown menu separation issue in scroll container
-The `Select` component does not enable the container scrolling event monitoring function by default. If you encounter the problem of separating the drop-down menu in the scrolling container, you can manually enable the `updateAtScroll` function of the internal `Trigger` component.
-If this is the case in the global environment, you can use the `ConfigProvider` component to enable this property by default.
+`Select` enables `updateAtScroll` on the internal `Trigger` by default so the popup follows scroll containers. To disable:
 
 ```vue
-<a-select :trigger-props="{updateAtScroll:true}"></a-select>
+<a-select :trigger-props="{ updateAtScroll: false }"></a-select>
 ```

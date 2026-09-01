@@ -349,6 +349,7 @@ export default defineComponent({
         popupOffset={4}
         disabled={mergedDisabled.value}
         autoFitPopupWidth
+        updateAtScroll
         {...props.triggerProps}
         onPopupVisibleChange={handlePopupVisibleChange}
       >

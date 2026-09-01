@@ -11,7 +11,7 @@
     :prevent-focus="true"
     :unmount-on-close="unmountOnClose"
     :popup-container="popupContainer"
-    v-bind="{ ...triggerProps }"
+    v-bind="{ updateAtScroll: true, ...triggerProps }"
     @popupVisibleChange="onPanelVisibleChange"
   >
     <component
