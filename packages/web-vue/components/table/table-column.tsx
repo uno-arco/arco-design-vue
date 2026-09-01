@@ -39,7 +39,9 @@ export default defineComponent({
      * @zh 列标题
      * @en Column title
      */
-    title: [String, Function] as PropType<TableColumnData['title']>,
+    title: {
+      type: [String, Function] as PropType<TableColumnData['title']>,
+    },
     /**
      * @zh 列宽度
      * @en Column width
