@@ -1,0 +1,37 @@
+name: Feature request
+description: Suggest an enhancement for Uno Arco
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Uno Arco prioritizes **compatibility + bugfixes**. Large visual redesigns and theme-lab features are usually deferred.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What problem does this solve for you?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed API / behavior
+      description: Keep it compatible with existing `arco-` APIs when possible.
+    validations:
+      required: true
+  - type: input
+    id: upstream
+    attributes:
+      label: Related upstream issue/PR (optional)
+      placeholder: https://github.com/arco-design/arco-design-vue/issues/xxxx
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing Uno Arco issues / changelog first
+          required: true
+        - label: This is not a request to break drop-in compatibility (CSS prefix / component names)
+          required: true

@@ -7,7 +7,7 @@ Uno Arco is a drop-in community fork. Component names, CSS prefix `arco-`, Less 
 ```json
 {
   "dependencies": {
-    "@arco-design/web-vue": "npm:@uno-arco/web-vue@^2.58.1"
+    "@arco-design/web-vue": "npm:@uno-arco/web-vue@^2.59.0"
   }
 }
 ```

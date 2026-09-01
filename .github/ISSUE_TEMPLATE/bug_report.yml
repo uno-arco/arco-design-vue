@@ -1,0 +1,65 @@
+name: Bug report
+description: Report a bug in @uno-arco/web-vue
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing an issue on **Uno Arco** (community fork).
+        Please confirm the problem reproduces on `@uno-arco/web-vue`, not only the official package.
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+      description: `@uno-arco/web-vue` version from package.json / lockfile
+      placeholder: "2.59.0"
+    validations:
+      required: true
+  - type: input
+    id: vue
+    attributes:
+      label: Vue version
+      placeholder: "3.5.x"
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      options:
+        - Chrome
+        - Edge
+        - Firefox
+        - Safari
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Clear steps to reproduce. A minimal reproduction (CodeSandbox / StackBlitz / repo) helps a lot.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: input
+    id: upstream
+    attributes:
+      label: Related upstream issue/PR (optional)
+      description: Link to arco-design/arco-design-vue if this started there
+      placeholder: https://github.com/arco-design/arco-design-vue/issues/xxxx
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing Uno Arco issues first
+          required: true
+        - label: I can reproduce this with `@uno-arco/web-vue`
+          required: true

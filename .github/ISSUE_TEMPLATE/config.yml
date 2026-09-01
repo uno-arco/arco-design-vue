@@ -1,5 +1,11 @@
 blank_issues_enabled: true
 contact_links:
+  - name: Changelog / 更新日志
+    url: https://github.com/uno-arco/arco-design-vue/blob/main/packages/web-vue/CHANGELOG.zh-CN.md
+    about: See what changed in each Uno Arco release.
   - name: Official Arco Design Vue
     url: https://github.com/arco-design/arco-design-vue
-    about: This repository is a community fork. The original project lives here.
+    about: Upstream project. Prefer filing Uno Arco issues here if you use @uno-arco/web-vue.
+  - name: Docs site
+    url: https://uno-arco.github.io/arco-design-vue/
+    about: Community documentation (GitHub Pages).
