@@ -81,6 +81,31 @@ function isHorizontal(direction: DirectionType) {
   return [DIRECTION_TOP, DIRECTION_BOTTOM].indexOf(direction) > -1;
 }
 
+function parseCssLength(
+  value: string,
+  percentBase: number
+): number | undefined {
+  if (!value || value === 'none' || value === 'auto') {
+    return undefined;
+  }
+  if (value.endsWith('px')) {
+    const n = parseFloat(value);
+    return Number.isFinite(n) ? n : undefined;
+  }
+  if (value.endsWith('%')) {
+    const n = parseFloat(value);
+    if (!Number.isFinite(n) || !Number.isFinite(percentBase)) {
+      return undefined;
+    }
+    return (percentBase * n) / 100;
+  }
+  return undefined;
+}
+
+function clampSize(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value));
+}
+
 export default defineComponent({
   name: 'ResizeBox',
   components: {
@@ -102,6 +127,38 @@ export default defineComponent({
      * @vModel
      */
     height: {
+      type: Number,
+    },
+    /**
+     * @zh 最小宽度（优先于 CSS min-width）
+     * @en Minimum width (takes precedence over CSS min-width)
+     * @version 2.59.1
+     */
+    minWidth: {
+      type: Number,
+    },
+    /**
+     * @zh 最大宽度（优先于 CSS max-width）
+     * @en Maximum width (takes precedence over CSS max-width)
+     * @version 2.59.1
+     */
+    maxWidth: {
+      type: Number,
+    },
+    /**
+     * @zh 最小高度（优先于 CSS min-height）
+     * @en Minimum height (takes precedence over CSS min-height)
+     * @version 2.59.1
+     */
+    minHeight: {
+      type: Number,
+    },
+    /**
+     * @zh 最大高度（优先于 CSS max-height）
+     * @en Maximum height (takes precedence over CSS max-height)
+     * @version 2.59.1
+     */
+    maxHeight: {
       type: Number,
     },
     /**
@@ -207,6 +264,55 @@ export default defineComponent({
       },
     };
 
+    const getAxisLimits = (axis: 'width' | 'height') => {
+      let min = 0;
+      let max = Infinity;
+      const el = wrapperRef.value;
+      if (el) {
+        const style = getComputedStyle(el);
+        const parent = el.parentElement;
+        const percentBase =
+          axis === 'width'
+            ? parent?.clientWidth ?? 0
+            : parent?.clientHeight ?? 0;
+        const cssMin = parseCssLength(
+          axis === 'width' ? style.minWidth : style.minHeight,
+          percentBase
+        );
+        const cssMax = parseCssLength(
+          axis === 'width' ? style.maxWidth : style.maxHeight,
+          percentBase
+        );
+        if (isNumber(cssMin)) {
+          min = Math.max(min, cssMin);
+        }
+        if (isNumber(cssMax)) {
+          max = Math.min(max, cssMax);
+        }
+      }
+
+      if (axis === 'width') {
+        if (isNumber(props.minWidth)) {
+          min = Math.max(min, props.minWidth);
+        }
+        if (isNumber(props.maxWidth)) {
+          max = Math.min(max, props.maxWidth);
+        }
+      } else {
+        if (isNumber(props.minHeight)) {
+          min = Math.max(min, props.minHeight);
+        }
+        if (isNumber(props.maxHeight)) {
+          max = Math.min(max, props.maxHeight);
+        }
+      }
+
+      if (min > max) {
+        return { min: max, max };
+      }
+      return { min, max };
+    };
+
     function onMoving(e: MouseEvent) {
       if (!record.moving) return;
 
@@ -223,26 +329,33 @@ export default defineComponent({
       switch (direction) {
         case DIRECTION_LEFT:
           newWidth = startWidth - offsetX;
-          setWidth(newWidth);
-          emit('update:width', newWidth);
           break;
         case DIRECTION_RIGHT:
           newWidth = startWidth + offsetX;
-          setWidth(newWidth);
-          emit('update:width', newWidth);
           break;
         case DIRECTION_TOP:
           newHeight = startHeight - offsetY;
-          setHeight(newHeight);
-          emit('update:height', newHeight);
           break;
         case DIRECTION_BOTTOM:
           newHeight = startHeight + offsetY;
-          setHeight(newHeight);
-          emit('update:height', newHeight);
           break;
         default:
           break;
+      }
+
+      if (direction === DIRECTION_LEFT || direction === DIRECTION_RIGHT) {
+        const { min, max } = getAxisLimits('width');
+        newWidth = clampSize(newWidth, min, max);
+        setWidth(newWidth);
+        emit('update:width', newWidth);
+      } else if (
+        direction === DIRECTION_TOP ||
+        direction === DIRECTION_BOTTOM
+      ) {
+        const { min, max } = getAxisLimits('height');
+        newHeight = clampSize(newHeight, min, max);
+        setHeight(newHeight);
+        emit('update:height', newHeight);
       }
 
       emit(

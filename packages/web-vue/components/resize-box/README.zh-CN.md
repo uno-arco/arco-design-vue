@@ -23,6 +23,10 @@ description: 伸缩框组件。
 |---|---|---|:---:|
 |width **(v-model)**|宽度|`number`|`-`|
 |height **(v-model)**|高度|`number`|`-`|
+|min-width|最小宽度（优先于 CSS min-width）|`number`|`-`|
+|max-width|最大宽度（优先于 CSS max-width）|`number`|`-`|
+|min-height|最小高度（优先于 CSS min-height）|`number`|`-`|
+|max-height|最大高度（优先于 CSS max-height）|`number`|`-`|
 |component|伸缩框的 html 标签|`string`|`'div'`|
 |directions|可以进行伸缩的边，有上、下、左、右可以使用|`('left' \| 'right' \| 'top' \| 'bottom')[]`|`['right']`|
 ### `<resize-box>` Events

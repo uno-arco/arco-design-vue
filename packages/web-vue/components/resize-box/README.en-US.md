@@ -25,6 +25,10 @@ description: Telescopic frame components.
 |---|---|---|:---:|
 |width **(v-model)**|Width|`number`|`-`|
 |height **(v-model)**|Height|`number`|`-`|
+|min-width|Minimum width (takes precedence over CSS min-width)|`number`|`-`|
+|max-width|Maximum width (takes precedence over CSS max-width)|`number`|`-`|
+|min-height|Minimum height (takes precedence over CSS min-height)|`number`|`-`|
+|max-height|Maximum height (takes precedence over CSS max-height)|`number`|`-`|
 |component|The html tag of the telescopic box|`string`|`'div'`|
 |directions|Can be stretched side, there are up, down, left and right can be used|`('left' \| 'right' \| 'top' \| 'bottom')[]`|`['right']`|
 ### `<resize-box>` Events

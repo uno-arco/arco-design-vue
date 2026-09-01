@@ -196,4 +196,62 @@ describe('ResizeBox', () => {
       'padding-right: 100px'
     );
   });
+
+  test('clamps width to minWidth and maxWidth props', () => {
+    const wrapper = mount(ResizeBox, {
+      props: {
+        directions: ['right'],
+        minWidth: 200,
+        maxWidth: 400,
+      },
+    });
+
+    const map: any = {};
+    window.addEventListener = vi.fn().mockImplementation((event, cb) => {
+      map[event] = cb;
+    });
+
+    const trigger = wrapper.findComponent({ name: 'ResizeTrigger' });
+    trigger.trigger('mousedown', { pageX: 500, pageY: 0 });
+
+    map.mousemove({ pageX: 100, pageY: 0 });
+    expect(wrapper.emitted('update:width')?.at(-1)?.[0]).toBe(200);
+
+    map.mousemove({ pageX: 900, pageY: 0 });
+    expect(wrapper.emitted('update:width')?.at(-1)?.[0]).toBe(400);
+  });
+
+  test('clamps width to CSS min-width and max-width', () => {
+    const styleSpy = vi
+      .spyOn(window, 'getComputedStyle')
+      .mockImplementation(() => {
+        return {
+          minWidth: '150px',
+          maxWidth: '350px',
+          minHeight: '0px',
+          maxHeight: 'none',
+        } as CSSStyleDeclaration;
+      });
+
+    const wrapper = mount(ResizeBox, {
+      props: {
+        directions: ['right'],
+      },
+    });
+
+    const map: any = {};
+    window.addEventListener = vi.fn().mockImplementation((event, cb) => {
+      map[event] = cb;
+    });
+
+    const trigger = wrapper.findComponent({ name: 'ResizeTrigger' });
+    trigger.trigger('mousedown', { pageX: 500, pageY: 0 });
+    map.mousemove({ pageX: 50, pageY: 0 });
+    expect(wrapper.emitted('update:width')?.at(-1)?.[0]).toBe(150);
+
+    map.mousemove({ pageX: 1000, pageY: 0 });
+    expect(wrapper.emitted('update:width')?.at(-1)?.[0]).toBe(350);
+
+    styleSpy.mockRestore();
+  });
 });
