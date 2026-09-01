@@ -7,7 +7,7 @@
     :popup-offset="4"
     animation-name="slide-dynamic-origin"
     :prevent-focus="true"
-    v-bind="triggerProps"
+    v-bind="{ updateAtScroll: true, ...triggerProps }"
     :disabled="mergedDisabled"
     :popup-visible="panelVisible"
     :popup-container="popupContainer"

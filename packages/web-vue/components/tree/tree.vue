@@ -464,6 +464,7 @@ export default defineComponent({
       size,
       defaultExpandAll,
       filterTreeNode,
+      searchValue,
       draggable,
       allowDrop,
       defaultExpandSelected,
@@ -578,6 +579,9 @@ export default defineComponent({
     const visibleTreeNodeList = computed(() => {
       const expandedKeysSet = new Set(expandedKeys.value);
       const currentExpandKeysSet = new Set(currentExpandKeys.value);
+      // While searching, show all nodes that pass the filter (ancestors included by filter),
+      // so matched leaves are reachable without manually expanding parents.
+      const isSearching = !!searchValue.value;
 
       return flattenTreeData.value.filter((node) => {
         const passFilter =
@@ -586,6 +590,7 @@ export default defineComponent({
           filterTreeNode?.value(node.treeNodeData);
 
         if (!passFilter) return false;
+        if (isSearching) return true;
 
         const isRoot = isUndefined(node.parentKey);
 
@@ -596,6 +601,13 @@ export default defineComponent({
         return isRoot || isVisibleNode;
       });
     });
+
+    function getCheckFilter() {
+      if (!searchValue.value || !filterTreeNode?.value) {
+        return undefined;
+      }
+      return (node: Node) => !!filterTreeNode.value?.(node.treeNodeData);
+    }
 
     function getPublicCheckedKeys(
       rawCheckedKeys: TreeNodeKey[],
@@ -644,7 +656,12 @@ export default defineComponent({
       const targetNode = targetKey
         ? key2TreeNode.value.get(targetKey)
         : undefined;
-      const publicCheckedKeys = getPublicCheckedKeys(newCheckedKeys);
+      const publicCheckedKeys = getPublicCheckedKeys(
+        newCheckedKeys,
+        // While searching, only echo leaf keys so re-init from props does not
+        // re-check nodes hidden by the filter (TreeSelect multi + search).
+        searchValue.value ? 'child' : checkedStrategy.value
+      );
       emit('update:checkedKeys', publicCheckedKeys);
       emit('update:halfCheckedKeys', newIndeterminateKeys);
       emit('check', publicCheckedKeys, {
@@ -738,6 +755,7 @@ export default defineComponent({
             checkedKeys: [...newCheckedKeys],
             indeterminateKeys: [...newIndeterminateKeys],
             checkStrictly: checkStrictly.value,
+            filter: getCheckFilter(),
           });
         }
       });
@@ -808,6 +826,7 @@ export default defineComponent({
         checkedKeys: checkedKeys.value,
         indeterminateKeys: indeterminateKeys.value,
         checkStrictly: checkStrictly.value,
+        filter: getCheckFilter(),
       });
 
       setCheckedState(newCheckedKeys, newIndeterminateKeys);

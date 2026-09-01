@@ -13,11 +13,16 @@ export function isNodeCheckable(node: Node) {
   return !!node.checkable;
 }
 
-function getChildrenKeys(node: Node) {
+function isNodeVisible(node: Node, filter?: (node: Node) => boolean) {
+  return !filter || filter(node);
+}
+
+function getChildrenKeys(node: Node, filter?: (node: Node) => boolean) {
   const keys: TreeNodeKey[] = [];
   node.children?.forEach((child) => {
+    if (!isNodeVisible(child, filter)) return;
     if (isNodeCheckable(child)) {
-      keys.push(child.key, ...getChildrenKeys(child));
+      keys.push(child.key, ...getChildrenKeys(child, filter));
     }
   });
   return keys;
@@ -27,13 +32,17 @@ function updateParent(options: {
   node: Node;
   checkedKeySet: Set<TreeNodeKey>;
   indeterminateKeySet: Set<TreeNodeKey>;
+  filter?: (node: Node) => boolean;
 }) {
-  const { node, checkedKeySet, indeterminateKeySet } = options;
+  const { node, checkedKeySet, indeterminateKeySet, filter } = options;
   let parentNode = node.parent;
   while (parentNode) {
     if (isNodeCheckable(parentNode)) {
       const parentKey = parentNode.key;
-      const children = parentNode.children?.filter(isNodeCheckable) || [];
+      const children =
+        parentNode.children?.filter(
+          (child) => isNodeCheckable(child) && isNodeVisible(child, filter)
+        ) || [];
       let checkedCount = 0;
       const total = children.length;
       children.some(({ key: childKey }) => {
@@ -68,6 +77,8 @@ export function getCheckedStateByCheck(options: {
   checkedKeys: TreeNodeKey[];
   indeterminateKeys: TreeNodeKey[];
   checkStrictly?: boolean;
+  /** When filtering (e.g. TreeSelect search), only affect visible nodes */
+  filter?: (node: Node) => boolean;
 }) {
   const {
     node,
@@ -75,6 +86,7 @@ export function getCheckedStateByCheck(options: {
     checkedKeys,
     indeterminateKeys,
     checkStrictly = false,
+    filter,
   } = options;
 
   const { key } = node;
@@ -87,7 +99,7 @@ export function getCheckedStateByCheck(options: {
 
   if (!checkStrictly) {
     // 更新子节点
-    const childKeys = getChildrenKeys(node);
+    const childKeys = getChildrenKeys(node, filter);
     if (checked) {
       childKeys.forEach(SetAdd(checkedKeySet));
     } else {
@@ -96,7 +108,7 @@ export function getCheckedStateByCheck(options: {
     childKeys.forEach(SetDelete(indeterminateKeySet));
 
     // 逐级更新父节点的选中状态
-    updateParent({ node, checkedKeySet, indeterminateKeySet });
+    updateParent({ node, checkedKeySet, indeterminateKeySet, filter });
   }
 
   return [[...checkedKeySet], [...indeterminateKeySet]];

@@ -2,8 +2,7 @@ import { computed, defineComponent, PropType, ref, toRefs, Slots } from 'vue';
 import Tree from '../tree';
 import { TreeProps, TreeNodeKey } from '../tree/interface';
 import { useScrollbar } from '../_hooks/use-scrollbar';
-import { ScrollbarProps } from '../scrollbar';
-import { Scrollbar } from '../index';
+import Scrollbar, { ScrollbarProps } from '../scrollbar';
 import { getPrefixCls } from '../_utils/global-config';
 
 export default defineComponent({

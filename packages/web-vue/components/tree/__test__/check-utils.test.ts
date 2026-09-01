@@ -134,4 +134,19 @@ describe('checkUtils', () => {
     expect(checkedResult.length).toBe(1);
     expect(indeterminateResult.length).toBe(0);
   });
+
+  test('[getCheckedStateByCheck] filter only checks visible children', () => {
+    const root = key2TreeNode.get('0-0') as unknown as Node;
+    const visible = new Set(['0-0', '0-0-1']);
+    const [checkedResult] = getCheckedStateByCheck({
+      node: root,
+      checked: true,
+      checkedKeys: [],
+      indeterminateKeys: [],
+      checkStrictly: false,
+      filter: (node) => visible.has(String(node.key)),
+    });
+    expect(checkedResult).toEqual(expect.arrayContaining(['0-0', '0-0-1']));
+    expect(checkedResult).not.toContain('0-0-2-1');
+  });
 });
