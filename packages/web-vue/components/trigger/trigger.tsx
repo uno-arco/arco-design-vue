@@ -24,6 +24,7 @@ import {
   getElementScrollRect,
   getScrollElements,
   getTransformOrigin,
+  isElementOutsideScrollView,
 } from './utils';
 import ResizeObserver from '../_components/resize-observer-v2';
 import { off, on } from '../_utils/dom';
@@ -279,8 +280,8 @@ export default defineComponent({
       type: [String, Object] as PropType<string | HTMLElement>,
     },
     /**
-     * @zh 是否在容器滚动时更新弹出框的位置
-     * @us Whether to update the position of the popup when the container is scrolled
+     * @zh 是否在容器滚动时更新弹出框的位置。若触发器滚出可视区域，将自动关闭弹出框，避免定位到页面外撑高文档。
+     * @en Whether to update the popup position when the container scrolls. If the trigger leaves the visible area, the popup closes to avoid off-document positioning.
      */
     updateAtScroll: {
       type: Boolean,
@@ -685,6 +686,14 @@ export default defineComponent({
           } else {
             updatePopupStyle();
           }
+        } else if (
+          (props.updateAtScroll || configCtx?.updateAtScroll) &&
+          firstElement.value &&
+          isElementOutsideScrollView(firstElement.value)
+        ) {
+          // Stop following an off-screen trigger; otherwise absolute popup
+          // coords can extend past the document and inflate body scrollbars.
+          changeVisible(false);
         } else {
           updatePopupStyle();
         }

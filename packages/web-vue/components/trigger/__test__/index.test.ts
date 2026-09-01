@@ -1,6 +1,7 @@
 import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 import Trigger from '../index';
+import { isElementOutsideScrollView } from '../utils';
 
 const domRect = (rect: Partial<DOMRect>): DOMRect =>
   ({
@@ -89,5 +90,122 @@ describe('Trigger', () => {
     await nextTick();
 
     expect(popup.getAttribute('style')).toBe(styleBefore);
+  });
+
+  test('detects trigger outside scroll container', () => {
+    const scrollParent = document.createElement('div');
+    Object.defineProperty(scrollParent, 'scrollHeight', { value: 400 });
+    Object.defineProperty(scrollParent, 'offsetHeight', { value: 100 });
+    Object.defineProperty(scrollParent, 'scrollWidth', { value: 100 });
+    Object.defineProperty(scrollParent, 'offsetWidth', { value: 100 });
+    vi.spyOn(scrollParent, 'getBoundingClientRect').mockReturnValue(
+      domRect({
+        top: 0,
+        bottom: 100,
+        left: 0,
+        right: 100,
+        width: 100,
+        height: 100,
+      })
+    );
+
+    const trigger = document.createElement('button');
+    scrollParent.appendChild(trigger);
+    document.body.appendChild(scrollParent);
+
+    vi.spyOn(trigger, 'getBoundingClientRect').mockReturnValue(
+      domRect({
+        top: 150,
+        bottom: 170,
+        left: 10,
+        right: 50,
+        width: 40,
+        height: 20,
+      })
+    );
+
+    expect(isElementOutsideScrollView(trigger)).toBe(true);
+
+    vi.spyOn(trigger, 'getBoundingClientRect').mockReturnValue(
+      domRect({
+        top: 40,
+        bottom: 60,
+        left: 10,
+        right: 50,
+        width: 40,
+        height: 20,
+      })
+    );
+    expect(isElementOutsideScrollView(trigger)).toBe(false);
+
+    scrollParent.remove();
+  });
+
+  test('closes popup when updateAtScroll trigger leaves scroll view', async () => {
+    const scrollParent = document.createElement('div');
+    Object.defineProperty(scrollParent, 'scrollHeight', { value: 400 });
+    Object.defineProperty(scrollParent, 'offsetHeight', { value: 100 });
+    Object.defineProperty(scrollParent, 'scrollWidth', { value: 100 });
+    Object.defineProperty(scrollParent, 'offsetWidth', { value: 100 });
+    document.body.appendChild(scrollParent);
+
+    const wrapper = mount(Trigger, {
+      attachTo: scrollParent,
+      slots: {
+        default: '<button id="scroll-trigger-btn">Test</button>',
+        content: '<div id="scroll-trigger-popup">Popup Content</div>',
+      },
+      props: {
+        trigger: 'click',
+        updateAtScroll: true,
+      },
+    });
+
+    const button = wrapper.find('button').element as HTMLElement;
+    vi.spyOn(button, 'getBoundingClientRect').mockReturnValue(
+      domRect({
+        top: 40,
+        bottom: 60,
+        left: 10,
+        right: 50,
+        width: 40,
+        height: 20,
+      })
+    );
+    vi.spyOn(scrollParent, 'getBoundingClientRect').mockReturnValue(
+      domRect({
+        top: 0,
+        bottom: 100,
+        left: 0,
+        right: 100,
+        width: 100,
+        height: 100,
+      })
+    );
+
+    await wrapper.find('button').trigger('click');
+    await nextTick();
+    expect(document.getElementById('scroll-trigger-popup')).toBeTruthy();
+    expect(wrapper.emitted('popupVisibleChange')?.at(-1)).toEqual([true]);
+
+    vi.spyOn(button, 'getBoundingClientRect').mockReturnValue(
+      domRect({
+        top: 150,
+        bottom: 170,
+        left: 10,
+        right: 50,
+        width: 40,
+        height: 20,
+      })
+    );
+
+    scrollParent.dispatchEvent(new Event('scroll'));
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+    await nextTick();
+
+    expect(wrapper.emitted('popupVisibleChange')?.at(-1)).toEqual([false]);
+
+    wrapper.unmount();
+    scrollParent.remove();
   });
 });

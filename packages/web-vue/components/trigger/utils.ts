@@ -505,3 +505,37 @@ export const getScrollElements = (container: HTMLElement | undefined) => {
   }
   return scrollElements;
 };
+
+/**
+ * Whether the trigger is fully outside the viewport or any scroll parent.
+ * Used with updateAtScroll to avoid chasing the element off-screen and
+ * stretching the document (e.g. popup stuck at the bottom of body).
+ */
+export const isElementOutsideScrollView = (element: HTMLElement) => {
+  const rect = element.getBoundingClientRect();
+  if (
+    rect.bottom <= 0 ||
+    rect.top >= window.innerHeight ||
+    rect.right <= 0 ||
+    rect.left >= window.innerWidth
+  ) {
+    return true;
+  }
+
+  let parent: HTMLElement | null = element.parentElement;
+  while (parent && parent !== document.documentElement) {
+    if (isScrollElement(parent)) {
+      const parentRect = parent.getBoundingClientRect();
+      if (
+        rect.bottom <= parentRect.top ||
+        rect.top >= parentRect.bottom ||
+        rect.right <= parentRect.left ||
+        rect.left >= parentRect.right
+      ) {
+        return true;
+      }
+    }
+    parent = parent.parentElement;
+  }
+  return false;
+};
