@@ -2334,6 +2334,7 @@ export default defineComponent({
       selfExpandAll: expandAll,
       selfSelect: select,
       selfSelectAll: selectAll,
+      selfClearSelected: clearSelected,
       selfResetFilters: resetFilters,
       selfClearFilters: clearFilters,
       selfResetSorters: resetSorters,
@@ -2342,14 +2343,23 @@ export default defineComponent({
   },
   methods: {
     /**
-     * @zh 设置全选状态
-     * @en Set select all state
+     * @zh 设置当前页的全选状态（跨页已选中的其它页 keys 不会被清除）
+     * @en Set select-all for the current page (keys selected on other pages are kept)
      * @param { boolean } checked
      * @public
      * @version 2.22.0
      */
     selectAll(checked?: boolean) {
       return this.selfSelectAll(checked);
+    },
+    /**
+     * @zh 清空全部已选中的行（含跨页选中）
+     * @en Clear all selected rows (including cross-page selection)
+     * @public
+     * @version 2.58.3
+     */
+    clearSelected() {
+      return this.selfClearSelected();
     },
     /**
      * @zh 设置行选择器状态

@@ -127,7 +127,8 @@ description: It is used for data collection, display, analysis and processing, a
 
 |Method|Description|Parameters|Return|version|
 |---|---|---|:---:|:---|
-|selectAll|Set select all state|checked: ` boolean `|-|2.22.0|
+|selectAll|Set select-all for the current page (keeps keys from other pages)|checked: ` boolean `|-|2.22.0|
+|clearSelected|Clear all selected rows (including cross-page selection)|-|-|2.58.3|
 |select|Set row selector state|rowKey: ` string \| number \| (string \| number)[] `<br>checked: ` boolean `|-|2.31.0|
 |expandAll|Set all expanded state|checked: ` boolean `|-|2.31.0|
 |expand|Set select all state|rowKey: ` string \| number \| (string \| number)[] `<br>checked: ` boolean `|-|2.31.0|

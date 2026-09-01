@@ -210,4 +210,40 @@ describe('Table', () => {
       })
     ).toBe(100);
   });
+
+  test('selectAll(false) keeps other-page keys; clearSelected clears all', async () => {
+    const data = reactive(
+      Array.from({ length: 4 }, (_, index) => ({
+        key: `row-${index}`,
+        name: `User ${index}`,
+        age: index,
+      }))
+    );
+    const selectedKeys = ref<string[]>(['row-0', 'row-2']);
+    const wrapper = mount(Table as any, {
+      props: {
+        'columns': demoColumns,
+        data,
+        'pagination': { pageSize: 2 },
+        'rowSelection': { type: 'checkbox', showCheckedAll: true },
+        'selectedKeys': selectedKeys.value,
+        'onUpdate:selectedKeys': (keys: string[]) => {
+          selectedKeys.value = keys;
+          wrapper.setProps({ selectedKeys: keys });
+        },
+      },
+    });
+    await nextTick();
+
+    (wrapper.vm as any).selectAll(false);
+    await nextTick();
+    // page 1 keys removed; page 2 key kept
+    expect(selectedKeys.value).toEqual(['row-2']);
+
+    selectedKeys.value = ['row-0', 'row-2'];
+    await wrapper.setProps({ selectedKeys: selectedKeys.value });
+    (wrapper.vm as any).clearSelected();
+    await nextTick();
+    expect(selectedKeys.value).toEqual([]);
+  });
 });

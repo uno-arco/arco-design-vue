@@ -125,7 +125,8 @@ description: 用于数据收集展示、分析整理、操作处理。
 
 |方法名|描述|参数|返回值|版本|
 |---|---|---|---|:---|
-|selectAll|设置全选状态|checked: ` boolean `|-|2.22.0|
+|selectAll|设置当前页全选状态（不清空其它页已选 keys）|checked: ` boolean `|-|2.22.0|
+|clearSelected|清空全部已选中的行（含跨页选中）|-|-|2.58.3|
 |select|设置行选择器状态|rowKey: ` string \| number \| (string \| number)[] `<br>checked: ` boolean `|-|2.31.0|
 |expandAll|设置全部展开状态|checked: ` boolean `|-|2.31.0|
 |expand|设置展开状态|rowKey: ` string \| number \| (string \| number)[] `<br>checked: ` boolean `|-|2.31.0|
