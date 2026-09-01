@@ -1,6 +1,6 @@
 {
   "name": "@uno-arco/web-vue",
-  "version": "2.58.1",
+  "version": "2.58.2",
   "description": "Uno Arco: community-maintained fork of Arco Design Vue",
   "keywords": [
     "arco",
@@ -54,7 +54,7 @@
     "lint-staged": "npx lint-staged"
   },
   "peerDependencies": {
-    "vue": ">=3.1.0"
+    "vue": ">=3.3.0"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx,vue}": [
@@ -76,7 +76,9 @@
     "@babel/preset-typescript": "^7.26.0",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
-    "@vitest/coverage-v8": "^0.34.6",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "@vitejs/plugin-vue-jsx": "^5.1.6",
+    "@vitest/coverage-v8": "^4.1.11",
     "@vue/babel-plugin-jsx": "^1.4.0",
     "@vue/test-utils": "^2.4.6",
     "eslint": "^7.32.0",
@@ -92,8 +94,9 @@
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-order": "^4.1.0",
-    "typescript": "^4.9.5",
-    "vitest": "^0.34.6",
+    "typescript": "~5.9.2",
+    "vite": "^7.1.5",
+    "vitest": "^4.1.11",
     "vitest-canvas-mock": "^1.1.4"
   },
   "dependencies": {
@@ -101,11 +104,11 @@
     "b-tween": "^0.3.3",
     "b-validate": "^1.5.3",
     "compute-scroll-into-view": "^1.0.20",
-    "dayjs": "^1.11.13",
+    "dayjs": "^1.11.20",
     "number-precision": "^1.6.0",
     "resize-observer-polyfill": "^1.5.1",
     "scroll-into-view-if-needed": "^2.2.31",
-    "vue": "^3.1.0"
+    "vue": "3.5.25"
   },
   "vetur": {
     "tags": "json/vetur-tags.json",

@@ -2,31 +2,11 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <title>Arco Design Vue</title>
-  <link
-    rel="shortcut icon"
-    type="image/x-icon"
-    href="https://unpkg.byted-static.com/latest/byted/arco-config/assets/favicon.ico"
-  />
-  <script src="https://unpkg.byted-static.com/byted/arco-config/1.0.5/index.js"></script>
+  <title>Uno Arco</title>
 </head>
 <body>
 <div id="root"></div>
 <div id="react-root"></div>
 <script type="module" src="./index.ts"></script>
-<script>
-  (function(win, export_obj) {
-    win['TeaAnalyticsObject'] = export_obj;
-    if (!win[export_obj]) {
-      function _collect() {
-        _collect.q.push(arguments);
-      }
-      _collect.q = _collect.q || [];
-      win[export_obj] = _collect;
-    }
-    win[export_obj].l = +new Date();
-  })(window, 'collectEvent');
-</script>
-<script async src="https://lf3-cdn-tos.bytescm.com/obj/static/log-sdk/collect/collect.js"></script>
 </body>
 </html>

@@ -185,7 +185,7 @@ const install = (app: App, options?: ArcoOptions) => {
   }
 };
 
-const ArcoVue = {
+const ArcoVue: Record<string, any> = {
   ...components,
   // Historical reason
   Alter: Alert,

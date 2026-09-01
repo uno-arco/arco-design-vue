@@ -3,11 +3,10 @@ import { InlineConfig } from 'vite';
 const config: InlineConfig = {
   mode: 'production',
   build: {
-    target: 'modules',
+    target: 'es2015',
     outDir: 'dist/css',
     emptyOutDir: false,
     minify: false,
-    brotliSize: false,
     rollupOptions: {
       external: /less$/,
       output: [

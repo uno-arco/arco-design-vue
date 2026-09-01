@@ -4,7 +4,15 @@
   "description": "Provides Markdown to Vue Component in Arco Vue Docs",
   "author": "wangchen <wangchen.flsion@bytedance.com>",
   "license": "MIT",
+  "type": "module",
   "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
   "files": [
     "dist"
   ],
@@ -24,8 +32,8 @@
     ]
   },
   "peerDependencies": {
-    "@vitejs/plugin-vue": "^1.2.3",
-    "vite": "^2.4.0"
+    "@vitejs/plugin-vue": "^6.0.0",
+    "vite": "^7.0.0"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
@@ -39,14 +47,15 @@
     "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^3.4.1",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "typescript": "~5.9.2"
   },
   "dependencies": {
-    "@vitejs/plugin-vue": "^1.2.3",
-    "@vue/compiler-sfc": "^3.5.13",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "@vue/compiler-sfc": "3.5.25",
     "js-yaml": "^4.1.0",
     "marked": "^2.1.3",
     "prismjs": "^1.29.0",
-    "vite": "^2.4.0"
+    "vite": "^7.1.5"
   }
 }

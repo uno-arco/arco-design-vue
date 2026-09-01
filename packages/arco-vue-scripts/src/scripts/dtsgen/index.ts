@@ -66,7 +66,8 @@ export async function build(input: string, options?: { outDir?: string }) {
           }
           const sourceFile = project.createSourceFile(
             path.relative(root, file).replace('.vue', isTSX ? '.tsx' : '.ts'),
-            scriptContent
+            scriptContent,
+            { overwrite: true }
           );
           if (sourceFile) {
             removeVueSpecifier(sourceFile);
@@ -94,9 +95,6 @@ export async function build(input: string, options?: { outDir?: string }) {
       sourceFiles.map(async (sourceFile) => {
         // eslint-disable-next-line no-console
         console.log(`Transform start: ${sourceFile.getFilePath()}`);
-        const diagnostics = sourceFile.getPreEmitDiagnostics();
-        // eslint-disable-next-line no-console
-        console.log(project.formatDiagnosticsWithColorAndContext(diagnostics));
         const emitOutput = sourceFile.getEmitOutput();
         const outputFiles = emitOutput.getOutputFiles();
         await Promise.all(

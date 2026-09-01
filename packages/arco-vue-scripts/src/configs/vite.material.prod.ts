@@ -2,7 +2,7 @@ import { InlineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import svgLoader from 'vite-svg-loader';
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 
 const getConfig = ({
   input,
@@ -14,7 +14,7 @@ const getConfig = ({
   return {
     mode: 'production',
     build: {
-      target: 'modules',
+      target: 'es2015',
       outDir: 'dist',
       emptyOutDir: true,
       minify: false,
@@ -28,7 +28,7 @@ const getConfig = ({
         ],
         output: [
           {
-            format: 'module',
+            format: 'es',
             entryFileNames: 'index.esm.js',
           },
           {
@@ -47,7 +47,6 @@ const getConfig = ({
               '@uno-arco/web-vue': 'ArcoVue',
               '@uno-arco/web-vue/es/icon': 'ArcoVueIcon',
             },
-            // @ts-ignore
             plugins: [terser()],
           },
         ],

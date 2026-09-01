@@ -1,4 +1,9 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm exec commitlint --edit $1
+pnpm exec commitlint --edit "$1"
+
+if [ -f "$1" ]; then
+  sed -i.bak -e '/Co-authored-by: Cursor/d' -e '/Made-with: Cursor/d' "$1"
+  rm -f "$1.bak"
+fi

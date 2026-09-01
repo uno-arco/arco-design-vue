@@ -13,6 +13,8 @@ interface NavBarOptions {
   handleLanguageChange?: (lang: string) => void;
 }
 
+const siteBase = '/arco-design-vue/';
+
 const ReactApp = ({
   lang = 'zh-CN',
   handleLanguageChange = () => {},
@@ -20,6 +22,7 @@ const ReactApp = ({
 }: NavBarOptions) => {
   return (
     <ConfigProvider prefixCls={'arco-react'}>
+      {/* @ts-ignore site-navbar types omit ThemeProvider */}
       <Navbar.NavbarThemeProvider>
         <Navbar
           lang={lang}
@@ -31,15 +34,11 @@ const ReactApp = ({
               .querySelector('#react-root')
               ?.setAttribute('arco-theme', theme);
           }}
-          loginHref={`/common/login?redirectUrl=${window.location.href}`}
           hideRtl
-          versions={[
-            {
-              version: '1.x',
-              link: 'https://design.bytedance.com/vue/docs/start',
-            },
-            { version, link: '/vue' },
-          ]}
+          hideUser
+          hideSearch
+          logoHref={siteBase}
+          versions={[{ version, link: siteBase }]}
         />
       </Navbar.NavbarThemeProvider>
     </ConfigProvider>

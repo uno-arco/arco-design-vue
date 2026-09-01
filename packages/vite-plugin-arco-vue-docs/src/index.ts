@@ -1,13 +1,35 @@
 import type { Plugin } from 'vite';
-import { transformChangelog, transformDemo, transformMain } from './markdown';
-import { getDescriptor } from './descriptor';
+import { transformChangelog, transformDemo, transformMain } from './markdown.js';
+import { getDescriptor } from './descriptor.js';
 import {
   getFrontMatter,
   getVueId,
   isDemoMarkdown,
   isVirtualModule,
-} from './utils';
-import marked from './marked';
+  toVirtualId,
+} from './utils.js';
+import marked from './marked.js';
+
+function getHook(
+  hook: unknown
+): ((this: unknown, ...args: any[]) => any) | undefined {
+  if (!hook) {
+    return undefined;
+  }
+  if (typeof hook === 'function') {
+    return hook as (this: unknown, ...args: any[]) => any;
+  }
+  if (
+    typeof hook === 'object' &&
+    hook !== null &&
+    'handler' in hook &&
+    typeof (hook as { handler: unknown }).handler === 'function'
+  ) {
+    return (hook as { handler: (this: unknown, ...args: any[]) => any })
+      .handler;
+  }
+  return undefined;
+}
 
 export default function vueMdPlugin(): Plugin {
   let vuePlugin: Plugin | undefined;
@@ -34,14 +56,15 @@ export default function vueMdPlugin(): Plugin {
       return null;
     },
     transform(code: string, id: string) {
-      if (!id.endsWith('.md')) {
+      const isMd = id.split('?')[0].endsWith('.md');
+      if (!isVirtualModule(id) && !isMd) {
         return null;
       }
       if (!vuePlugin) {
         return this.error('Not found plugin [vite:vue]');
       }
       if (isVirtualModule(id)) {
-        return vuePlugin.transform?.call(this, code, getVueId(id));
+        return null;
       }
 
       const tokens = marked.lexer(code);
@@ -55,7 +78,7 @@ export default function vueMdPlugin(): Plugin {
         ? transformDemo(tokens, id, frontMatter)
         : transformMain(tokens, id, frontMatter);
 
-      return vuePlugin.transform?.call(this, vueCode, getVueId(id));
+      return getHook(vuePlugin.transform)?.call(this, vueCode, getVueId(id));
     },
 
     async handleHotUpdate(ctx) {
@@ -84,11 +107,11 @@ export default function vueMdPlugin(): Plugin {
         : transformMain(tokens, file, frontMatter);
 
       if (isDemo) {
-        const virtualPath = `/@virtual${file}`;
+        const virtualPath = toVirtualId(file);
 
         const mods = moduleGraph.getModulesByFile(virtualPath);
         if (mods) {
-          const ret = await vuePlugin.handleHotUpdate?.({
+          const ret = await getHook(vuePlugin.handleHotUpdate)?.call(this, {
             file: getVueId(virtualPath),
             timestamp,
             modules: [...mods],
@@ -101,7 +124,7 @@ export default function vueMdPlugin(): Plugin {
       }
 
       // reload the content component
-      const ret = await vuePlugin.handleHotUpdate?.({
+      const ret = await getHook(vuePlugin.handleHotUpdate)?.call(this, {
         file: getVueId(file),
         timestamp,
         modules,

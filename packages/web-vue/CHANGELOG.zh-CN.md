@@ -2,6 +2,14 @@
 changelog: true
 ```
 
+## 2.58.2
+
+`2026-09-01`
+
+### 💎 功能优化
+
+- 工具链对齐 Element Plus：Vue 3.5.25、Vite 7、TypeScript 5.9、Vitest 4、Node 22。peer `vue` 调整为 `>=3.3.0`。尚未包含 Vue 3.6 / Vapor。
+
 ## 2.58.1
 
 `2026-09-01`

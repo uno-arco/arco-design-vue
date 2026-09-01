@@ -1,12 +1,12 @@
 import marked from 'marked';
 // @ts-ignore
-import { cleanUrl, escape } from 'marked/src/helpers';
+import { cleanUrl, escape } from 'marked/src/helpers.js';
 import yaml from 'js-yaml';
 import Prism from 'prismjs';
-import loadLanguages from 'prismjs/components/index';
+import loadLanguages from 'prismjs/components/index.js';
 import { parse } from '@vue/compiler-sfc';
 import path from 'path';
-import { FileImportToken, I18nDescriptionToken } from './interface';
+import { FileImportToken, I18nDescriptionToken } from './interface.js';
 
 const languages = ['shell', 'js', 'ts', 'jsx', 'tsx', 'less', 'diff'];
 loadLanguages(languages);

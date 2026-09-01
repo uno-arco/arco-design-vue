@@ -1,4 +1,4 @@
-import { computed, defineComponent, PropType, toRef, toRefs } from 'vue';
+import { computed, defineComponent, PropType, toRef, toRefs, type DefineComponent } from 'vue';
 import SubMenuInline from './sub-menu-inline.vue';
 import SubMenuPop from './sub-menu-pop.vue';
 import useMenu from './hooks/use-menu';
@@ -155,4 +155,4 @@ export default defineComponent({
       />
     );
   },
-});
+}) as DefineComponent;

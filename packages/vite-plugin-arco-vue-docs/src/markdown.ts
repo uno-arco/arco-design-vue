@@ -1,11 +1,11 @@
 import path from 'path';
 import fs from 'fs-extra';
-import { isCode, isFileImport, isI18nDescription, toPascalCase } from './utils';
-import marked from './marked';
-import { getDemoVue, getMainVue } from './vue-template';
-import { createDescriptor } from './descriptor';
-import { I18nData } from './interface';
-import { parseChangelog } from './parse-changelog';
+import { isCode, isFileImport, isI18nDescription, toPascalCase, toVirtualId } from './utils.js';
+import marked from './marked.js';
+import { getDemoVue, getMainVue } from './vue-template.js';
+import { createDescriptor } from './descriptor.js';
+import { I18nData } from './interface.js';
+import { parseChangelog } from './parse-changelog.js';
 
 export const transformMain = (
   tokens: any[],
@@ -43,7 +43,7 @@ export const transformDemo = (
   frontMatter?: any
 ) => {
   const basename = path.basename(filename, '.md');
-  const virtualPath = `/@virtual${filename}`;
+  const virtualPath = toVirtualId(filename);
   const data = {
     id: basename,
     title: frontMatter?.title ?? '',

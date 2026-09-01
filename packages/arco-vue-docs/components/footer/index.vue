@@ -34,7 +34,12 @@
       </div>
       <div class="arco-site-footer-bottom">
         <div class="arco-site-footer-bottom-left">
-          <a class="arco-site-footer-btn" href="/">
+          <a
+            class="arco-site-footer-btn"
+            href="https://github.com/uno-arco/arco-design-vue"
+            target="_blank"
+            rel="noreferrer"
+          >
             <span class="arco-site-footer-icon">
               <span class="arco-site-footer-icon-gray">
                 <icon-arco />
@@ -43,17 +48,12 @@
                 <icon-arco-color />
               </span>
             </span>
-            Powered by ArcoDesign
+            Powered by Uno Arco
           </a>
           <div class="arco-site-footer-copyright">
-            <span>UED-火山引擎 & 架构前端 </span>
-            <span>ⓒ Copyright ByteDance 2019-{{ latestYear }}</span>
+            <span>Community-maintained fork of Arco Design Vue</span>
+            <span>Original work © ByteDance · community changes © Uno Arco</span>
           </div>
-        </div>
-        <div class="arco-site-footer-bottom-right">
-          <a target="_blank" rel="noreferrer" href="https://beian.miit.gov.cn/">
-            京ICP备19059916号-18
-          </a>
         </div>
       </div>
     </div>
@@ -64,7 +64,6 @@
 import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Message } from '@web-vue/components/index';
-import joinChat from '../../utils/join-chart';
 import IconArco from '../../assets/footer/arco.svg';
 import IconArcoColor from '../../assets/footer/arco-color.svg';
 import Logo from '../logo/index.vue';
@@ -114,16 +113,16 @@ export default defineComponent({
         title: 'ecosystem',
         list: [
           {
-            text: 'designLab',
-            link: '/themes/stores',
+            text: 'github',
+            link: 'https://github.com/uno-arco/arco-design-vue',
           },
           {
-            text: 'material',
-            link: '/material',
+            text: 'npm',
+            link: 'https://www.npmjs.com/package/@uno-arco/web-vue',
           },
           {
-            text: 'pro',
-            link: '/pro',
+            text: 'official',
+            link: 'https://arco.design/vue',
           },
         ],
       },
@@ -161,7 +160,6 @@ export default defineComponent({
       t,
       relevant,
       toBeOpen,
-      joinChat,
       latestYear,
     };
   },

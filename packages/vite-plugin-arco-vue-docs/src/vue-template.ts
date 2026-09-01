@@ -1,8 +1,8 @@
 /**
  * 获取Main组件的Vue代码
  */
-import { I18nData } from './interface';
-import { getTemplateString } from './utils';
+import { I18nData } from './interface.js';
+import { getTemplateString } from './utils.js';
 
 export const getMainVue = ({
   html,

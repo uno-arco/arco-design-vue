@@ -10,11 +10,10 @@ const langFiles = glob.sync('components/locale/lang/*.ts');
 const config: InlineConfig = {
   mode: 'production',
   build: {
-    target: 'modules',
+    target: 'es2015',
     outDir: 'es',
     emptyOutDir: false,
     minify: false,
-    brotliSize: false,
     rollupOptions: {
       input: ['components/index.ts', 'components/icon/index.ts', ...langFiles],
       output: [

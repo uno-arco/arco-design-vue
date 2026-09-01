@@ -2,13 +2,14 @@
   "compilerOptions": {
     "outDir": "dist",
     "declaration": true,
-    "module": "CommonJS",
-    "target": "ES2015",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "target": "ES2020",
+    "moduleResolution": "bundler",
     "baseUrl": ".",
     "strict": true,
     "isolatedModules": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "lib": [
       "ES2020"

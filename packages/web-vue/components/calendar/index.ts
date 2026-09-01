@@ -1,9 +1,9 @@
 import type { App } from 'vue';
-import type { ArcoOptions } from '../_utils/types';
+import type { ArcoOptions, SFCWithInstall } from '../_utils/types';
 import { setGlobalConfig, getComponentPrefix } from '../_utils/global-config';
 import _Calendar from './calendar';
 
-const Calendar = Object.assign(_Calendar, {
+const Calendar: SFCWithInstall<typeof _Calendar> = Object.assign(_Calendar, {
   install: (app: App, options?: ArcoOptions) => {
     setGlobalConfig(app, options);
     const componentPrefix = getComponentPrefix(options);

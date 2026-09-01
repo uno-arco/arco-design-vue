@@ -2,18 +2,17 @@ import { InlineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import svgLoader from 'vite-svg-loader';
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 
 export default ({ name }: { name: string }): InlineConfig => {
   return {
     mode: 'production',
     build: {
-      target: 'modules',
+      target: 'es2015',
       outDir: 'dist',
       emptyOutDir: false,
       sourcemap: true,
       minify: false,
-      brotliSize: false,
       rollupOptions: {
         external: [
           'vue',
@@ -25,6 +24,7 @@ export default ({ name }: { name: string }): InlineConfig => {
         output: [
           {
             format: 'umd',
+            name,
             entryFileNames: `index.js`,
             sourcemap: true,
             globals: {
@@ -37,6 +37,7 @@ export default ({ name }: { name: string }): InlineConfig => {
           },
           {
             format: 'umd',
+            name,
             entryFileNames: `index.min.js`,
             sourcemap: true,
             globals: {
@@ -46,7 +47,6 @@ export default ({ name }: { name: string }): InlineConfig => {
               '@uno-arco/web-vue': 'ArcoVue',
               '@uno-arco/web-vue/es/icon': 'ArcoVueIcon',
             },
-            // @ts-ignore
             plugins: [terser()],
           },
         ],

@@ -1,5 +1,5 @@
 import { Token } from 'marked';
-import marked from './marked';
+import marked from './marked.js';
 
 const getType = (text: string) => {
   if (/attention|重点注意/i.test(text)) {

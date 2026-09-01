@@ -20,14 +20,18 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-vi.mock('resize-observer-polyfill', () => ({
-  __esModule: true,
-  default: vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-  })),
-}));
+vi.mock('resize-observer-polyfill', () => {
+  class ResizeObserverMock {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+
+  return {
+    __esModule: true,
+    default: ResizeObserverMock,
+  };
+});
 
 config.global.plugins = [ArcoVue, ArcoVueIcon];
 
@@ -40,7 +44,7 @@ function demoTest(component: string) {
     ]);
 
     test.each(table)('render [%s] correctly', async (_, filename) => {
-      const demo = await import(`../${filename}`);
+      const demo = await import(/* @vite-ignore */ `../${filename}`);
       const candidates = Object.values(demo.default?.components ?? {});
       const target = candidates.length > 0 ? candidates[0] : demo.default;
       const wrapper = mount(target as any);

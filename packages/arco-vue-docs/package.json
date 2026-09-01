@@ -2,8 +2,8 @@
   "name": "@arco-design/arco-vue-docs",
   "version": "1.0.0",
   "private": true,
-  "description": "Arco Design Vue 2.0 Docs",
-  "author": "wangchen <wangchen.flsion@bytedance.com>",
+  "description": "Uno Arco documentation site",
+  "author": "Uno Arco",
   "homepage": "https://arco.design/vue",
   "license": "MIT",
   "scripts": {
@@ -47,8 +47,8 @@
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-order": "^4.1.0",
-    "typescript": "^4.9.5",
-    "vue": "^3.5.13",
+    "typescript": "~5.9.2",
+    "vue": "3.5.25",
     "vue-i18n": "^9.14.3",
     "vue-router": "^4.5.0"
   },

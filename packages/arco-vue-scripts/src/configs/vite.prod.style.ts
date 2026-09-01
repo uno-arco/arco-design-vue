@@ -4,11 +4,10 @@ import cssjs from '../plugins/vite-plugin-cssjs';
 const config: InlineConfig = {
   mode: 'production',
   build: {
-    target: 'modules',
+    target: 'es2015',
     outDir: 'es',
     emptyOutDir: false,
     minify: false,
-    brotliSize: false,
     rollupOptions: {
       external: /less$/,
       output: [

@@ -2,6 +2,14 @@
 changelog: true
 ```
 
+## 2.58.2
+
+`2026-09-01`
+
+### 💎 Enhancement
+
+- Align the toolchain with Element Plus: Vue 3.5.25, Vite 7, TypeScript 5.9, Vitest 4, Node 22. Peer `vue` is now `>=3.3.0`. Vue 3.6 / Vapor is not included yet.
+
 ## 2.58.1
 
 `2026-09-01`

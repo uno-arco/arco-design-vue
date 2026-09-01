@@ -1,7 +1,7 @@
 import { Token, Tokens } from 'marked';
 import path from 'path';
-import { FileImportToken, I18nDescriptionToken } from './interface';
-
+import { fileURLToPath } from 'node:url';
+import { FileImportToken, I18nDescriptionToken } from './interface.js';
 export function isParagraph(token: Token): token is Tokens.Paragraph {
   return (token as Tokens.Paragraph).type === 'paragraph';
 }
@@ -58,12 +58,34 @@ export const getTemplateString = (string: string): string => {
   return `'${string.replace(/'/g, `\\'`)}'`;
 };
 
+export const normalizeModuleId = (id: string): string => {
+  let clean = id.split('?')[0].replace(/\\/g, '/');
+  if (clean.startsWith('file:')) {
+    try {
+      clean = fileURLToPath(clean).replace(/\\/g, '/');
+    } catch {
+      // keep the original id when it is not a valid file URL
+    }
+  }
+  if (/^\/[A-Za-z]:\//.test(clean)) {
+    clean = clean.slice(1);
+  }
+  return clean;
+};
+
+export const toVirtualId = (id: string): string => {
+  return `${normalizeModuleId(id)}.virtual.vue`;
+};
+
 export const isVirtualModule = (id: string) => {
-  return /\/@virtual/.test(id);
+  if (id.includes('?')) {
+    return false;
+  }
+  return normalizeModuleId(id).endsWith('.virtual.vue');
 };
 
 export const isDemoMarkdown = (id: string) => {
-  return /\/__demo__\//.test(id);
+  return /\/__demo__\//.test(normalizeModuleId(id));
 };
 
 export const getFrontMatter = (tokens: any[]) => {
@@ -76,7 +98,11 @@ export const getFrontMatter = (tokens: any[]) => {
 };
 
 export const getVueId = (id: string) => {
-  return id.replace('.md', '.vue');
+  const normalized = normalizeModuleId(id);
+  if (isVirtualModule(normalized)) {
+    return normalized;
+  }
+  return normalized.replace(/\.md$/, '.vue');
 };
 
 export const getValidFilename = (filename: string) => {
