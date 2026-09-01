@@ -315,6 +315,7 @@ export default defineComponent({
         ...getStyle(props.column, {
           dataColumns: props.dataColumns,
           operations: props.operations,
+          columnWidth: tableCtx.thWidth,
         }),
         ...props.column?.cellStyle,
         ...props.column?.headerCellStyle,

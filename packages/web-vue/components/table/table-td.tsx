@@ -28,7 +28,7 @@ const TD_TYPES = [
   'radio',
   'expand',
 ] as const;
-type TdTypes = typeof TD_TYPES[number];
+type TdTypes = (typeof TD_TYPES)[number];
 
 export default defineComponent({
   name: 'Td',
@@ -146,6 +146,7 @@ export default defineComponent({
       const style = getStyle(props.column, {
         dataColumns: props.dataColumns,
         operations: props.operations,
+        columnWidth: tableCtx.thWidth,
       });
       const customStyle = getCustomStyle();
       return {

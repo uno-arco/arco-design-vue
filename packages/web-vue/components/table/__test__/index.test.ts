@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils';
 import { nextTick, reactive, ref } from 'vue';
 import Table from '../table';
 import { TableChangeExtra, TableColumnData, TableData } from '../interface';
+import { getFixedNumber } from '../utils';
 
 const demoData = [
   {
@@ -138,5 +139,52 @@ describe('Table', () => {
     expect(rows.length).toBeGreaterThan(0);
     expect(rows.length).toBeLessThan(40);
     expect(wrapper.text()).toContain('User 0');
+  });
+
+  test('fixed column offsets prefer measured widths', () => {
+    const columns: TableColumnData[] = [
+      { title: 'A', dataIndex: 'a', width: 100, fixed: 'left' },
+      { title: 'B', dataIndex: 'b', width: 100, fixed: 'left' },
+      { title: 'C', dataIndex: 'c', width: 200 },
+      { title: 'D', dataIndex: 'd', width: 80, fixed: 'right' },
+      { title: 'E', dataIndex: 'e', width: 120, fixed: 'right' },
+    ];
+    const measured = { a: 140, b: 160, d: 90, e: 110 };
+
+    expect(
+      getFixedNumber(columns[0], {
+        dataColumns: columns,
+        operations: [],
+        columnWidth: measured,
+      })
+    ).toBe(0);
+    expect(
+      getFixedNumber(columns[1], {
+        dataColumns: columns,
+        operations: [],
+        columnWidth: measured,
+      })
+    ).toBe(140);
+    expect(
+      getFixedNumber(columns[4], {
+        dataColumns: columns,
+        operations: [],
+        columnWidth: measured,
+      })
+    ).toBe(0);
+    expect(
+      getFixedNumber(columns[3], {
+        dataColumns: columns,
+        operations: [],
+        columnWidth: measured,
+      })
+    ).toBe(110);
+    // Without measured widths, fall back to declared width
+    expect(
+      getFixedNumber(columns[1], {
+        dataColumns: columns,
+        operations: [],
+      })
+    ).toBe(100);
   });
 });

@@ -163,9 +163,35 @@ const getOperationColumnIndex = (
   return -1;
 };
 
+/** Resolve sticky offset width — prefer measured th width (EP realWidth style). */
+export const resolveColumnWidth = (
+  column: Pick<
+    TableColumnData,
+    'dataIndex' | 'width' | 'minWidth' | '_resizeWidth'
+  >,
+  columnWidth?: Record<string, number>
+) => {
+  if (column.dataIndex && columnWidth?.[column.dataIndex] != null) {
+    return columnWidth[column.dataIndex];
+  }
+  return column._resizeWidth ?? column.width ?? column.minWidth ?? 0;
+};
+
+const resolveOperationWidth = (
+  column: TableOperationColumn,
+  columnWidth?: Record<string, number>,
+  fallback = 0
+) => {
+  if (columnWidth?.[column.name] != null) {
+    return columnWidth[column.name];
+  }
+  return column.width ?? fallback;
+};
+
 export const getOperationFixedNumber = (
   column: TableOperationColumn,
-  operations: TableOperationColumn[]
+  operations: TableOperationColumn[],
+  columnWidth?: Record<string, number>
 ) => {
   const index = getOperationColumnIndex(operations, column.name);
   if (index <= 0) {
@@ -174,7 +200,7 @@ export const getOperationFixedNumber = (
   let count = 0;
   const _operations = operations.slice(0, index);
   for (const item of _operations) {
-    count += item.width ?? 0;
+    count += resolveOperationWidth(item, columnWidth, 0);
   }
 
   return count;
@@ -188,7 +214,7 @@ const getFirstDataColumn = (column: TableColumnData): TableColumnData => {
 
 const getLastDataColumn = (column: TableColumnData): TableColumnData => {
   if (column.children && column.children.length > 0)
-    return getFirstDataColumn(column.children[column.children.length - 1]);
+    return getLastDataColumn(column.children[column.children.length - 1]);
   return column;
 };
 
@@ -198,36 +224,38 @@ export const getFixedNumber = (
   {
     dataColumns,
     operations,
+    columnWidth,
   }: {
     dataColumns: TableColumnData[];
     operations: TableOperationColumn[];
+    columnWidth?: Record<string, number>;
   }
 ) => {
   let count = 0;
 
   if (column.fixed === 'left') {
     for (const item of operations) {
-      count += item.width ?? 40;
+      count += resolveOperationWidth(item, columnWidth, 40);
     }
     const first = getFirstDataColumn(column);
     for (const item of dataColumns) {
       if (first.dataIndex === item.dataIndex) {
         break;
       }
-      count += item._resizeWidth ?? item.width ?? 0;
+      count += resolveColumnWidth(item, columnWidth);
     }
     return count;
   }
 
   const last = getLastDataColumn(column);
-  for (let i = dataColumns.length - 1; i > 0; i--) {
+  for (let i = dataColumns.length - 1; i >= 0; i--) {
     const item = dataColumns[i];
     if (last.dataIndex === item.dataIndex) {
       break;
     }
 
     if (item.fixed === 'right') {
-      count += item.width as number;
+      count += resolveColumnWidth(item, columnWidth);
     }
   }
   return count;
@@ -279,13 +307,19 @@ export const getStyle = (
   {
     dataColumns,
     operations,
+    columnWidth,
   }: {
     dataColumns: TableColumnData[];
     operations: TableOperationColumn[];
+    columnWidth?: Record<string, number>;
   }
 ): CSSProperties => {
   if (column.fixed) {
-    const offset = `${getFixedNumber(column, { dataColumns, operations })}px`;
+    const offset = `${getFixedNumber(column, {
+      dataColumns,
+      operations,
+      columnWidth,
+    })}px`;
     if (column.fixed === 'left') {
       return {
         left: offset,
@@ -300,11 +334,12 @@ export const getStyle = (
 
 export const getOperationStyle = (
   column: TableOperationColumn,
-  operations: TableOperationColumn[]
+  operations: TableOperationColumn[],
+  columnWidth?: Record<string, number>
 ) => {
   if (column.fixed) {
     return {
-      left: `${getOperationFixedNumber(column, operations)}px`,
+      left: `${getOperationFixedNumber(column, operations, columnWidth)}px`,
     };
   }
   return {};

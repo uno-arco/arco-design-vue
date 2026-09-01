@@ -66,7 +66,11 @@ export default defineComponent({
     const prefixCls = getPrefixCls('table');
     const tableCtx = inject<Partial<TableContext>>(tableInjectionKey, {});
     const style = computed(() =>
-      getOperationStyle(props.operationColumn, props.operations)
+      getOperationStyle(
+        props.operationColumn,
+        props.operations,
+        tableCtx.thWidth
+      )
     );
 
     const cls = computed(() => [

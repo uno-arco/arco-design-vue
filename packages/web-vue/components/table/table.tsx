@@ -1439,6 +1439,8 @@ export default defineComponent({
       slotColumnMap.delete(id);
     };
 
+    const thWidth = ref<Record<string, number>>({});
+
     provide(
       tableInjectionKey,
       reactive({
@@ -1460,6 +1462,7 @@ export default defineComponent({
         onSorterChange: handleSorterChange,
         onFilterChange: handleFilterChange,
         onThMouseDown: handleThMouseDown,
+        thWidth,
       })
     );
 
@@ -1514,8 +1517,6 @@ export default defineComponent({
     });
 
     const isVirtualList = computed(() => Boolean(props.virtualListProps));
-
-    const thWidth = ref<Record<string, number>>({});
 
     const getThWidth = () => {
       const width: Record<string, number> = {};

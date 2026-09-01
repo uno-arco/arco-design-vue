@@ -82,7 +82,11 @@ export default defineComponent({
     };
 
     const style = computed(() =>
-      getOperationStyle(props.operationColumn, props.operations)
+      getOperationStyle(
+        props.operationColumn,
+        props.operations,
+        tableCtx.thWidth
+      )
     );
 
     const cls = computed(() => [
