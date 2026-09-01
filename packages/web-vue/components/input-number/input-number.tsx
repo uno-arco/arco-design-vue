@@ -396,6 +396,11 @@ export default defineComponent({
       value = value.trim().replace(/。/g, '.');
       value = props.parser?.(value) ?? value;
 
+      // Reject scientific notation input (e/E) so values stay decimal strings.
+      if (/e/i.test(value)) {
+        return;
+      }
+
       if (isNumber(Number(value)) || /^(\.|-)$/.test(value)) {
         _value.value = props.formatter?.(value) ?? value;
         updateNumberStatus(valueNumber.value);
@@ -454,9 +459,15 @@ export default defineComponent({
 
     const onKeyDown = (event: KeyboardEvent) => {
       emit('keydown', event);
-      if (!event.defaultPrevented) {
-        keyDownHandler(event);
+      if (event.defaultPrevented) {
+        return;
       }
+      // Block scientific notation keys.
+      if (event.key === 'e' || event.key === 'E') {
+        event.preventDefault();
+        return;
+      }
+      keyDownHandler(event);
     };
 
     watch(

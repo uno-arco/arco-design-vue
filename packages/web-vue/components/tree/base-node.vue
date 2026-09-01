@@ -354,8 +354,6 @@ export default defineComponent({
 
         e.stopPropagation();
 
-        setDragStatus('dragStart', e);
-
         try {
           // ie throw error
           // firefox-need-it
@@ -363,6 +361,9 @@ export default defineComponent({
         } catch (error) {
           // empty
         }
+
+        // Emit after setData so user handlers can override dataTransfer.
+        setDragStatus('dragStart', e);
       },
       onDragEnd(e: DragEvent) {
         if (!draggable.value) return;

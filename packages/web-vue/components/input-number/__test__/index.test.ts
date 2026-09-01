@@ -82,4 +82,15 @@ describe('InputNumber', () => {
     });
     expect(wrapper.find('input').element.value).toBe('0.00000001');
   });
+
+  test('should reject scientific notation input', async () => {
+    const wrapper = mount(InputNumber, {
+      props: {
+        defaultValue: 1,
+      },
+    });
+    const input = wrapper.find('input');
+    await input.setValue('1e5');
+    expect(input.element.value).toBe('1');
+  });
 });

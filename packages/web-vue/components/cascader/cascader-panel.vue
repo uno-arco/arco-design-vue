@@ -413,6 +413,11 @@ export default defineComponent({
           KEYBOARD_KEY.ENTER,
           (ev: Event) => {
             if (activeOption.value) {
+              // Non-strict mode: only leaves are selectable (match click UI).
+              if (!props.checkStrictly && !activeOption.value.isLeaf) {
+                setSelectedPath(activeOption.value.key);
+                return;
+              }
               let checked: boolean;
               if (props.checkStrictly || activeOption.value.isLeaf) {
                 checked = !computedValueMap.value.has(activeOption.value.key);

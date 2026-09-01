@@ -147,6 +147,24 @@ describe('Cascader', () => {
     expect(wrapper.emitted('change')?.[0]).toEqual(['haidian']);
   });
 
+  test('Enter on non-leaf only expands path when checkStrictly is false', async () => {
+    const wrapper = mount(Cascader, {
+      props: {
+        options,
+      },
+    });
+
+    const input = wrapper.find('input');
+    await input.trigger('click');
+    await input.trigger('keydown', { key: 'ArrowDown' });
+    await input.trigger('keydown', { key: 'Enter' });
+    await nextTick();
+
+    expect(wrapper.emitted('change')).toBeUndefined();
+    const dropdown = wrapper.findComponent({ name: 'BaseCascaderPanel' });
+    expect(dropdown.findAll('.arco-cascader-panel-column')).toHaveLength(2);
+  });
+
   test('search caps filtered leaf options', async () => {
     const manyOptions = Array.from({ length: 250 }, (_, index) => ({
       value: `v${index}`,
