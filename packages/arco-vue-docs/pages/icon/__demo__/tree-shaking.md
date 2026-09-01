@@ -25,7 +25,7 @@ The on-demand import can be achieved by separately introducing icons.
 </template>
 
 <script>
-import { IconPlus, IconCheckCircle } from '@arco-design/web-vue/es/icon';
+import { IconPlus, IconCheckCircle } from '@uno-arco/web-vue/es/icon';
 
 export default {
   components: { IconPlus, IconCheckCircle }

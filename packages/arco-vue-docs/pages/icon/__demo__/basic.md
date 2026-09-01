@@ -10,11 +10,11 @@ Arco图标是一个独立的库，需要额外引入并注册使用。
 
 ```ts
 import { createApp } from 'vue'
-import ArcoVue from '@arco-design/web-vue';
+import ArcoVue from '@uno-arco/web-vue';
 // 额外引入图标库
-import ArcoVueIcon from '@arco-design/web-vue/es/icon';
+import ArcoVueIcon from '@uno-arco/web-vue/es/icon';
 import App from './App.vue';
-import '@arco-design/web-vue/dist/arco.css';
+import '@uno-arco/web-vue/dist/arco.css';
 
 const app = createApp(App);
 app.use(ArcoVue);
@@ -44,11 +44,11 @@ The Arco icon is an independent library and needs to be introduced and registere
 
 ```ts
 import { createApp } from 'vue'
-import ArcoVue from '@arco-design/web-vue';
+import ArcoVue from '@uno-arco/web-vue';
 // import additional icon library
-import ArcoVueIcon from '@arco-design/web-vue/es/icon';
+import ArcoVueIcon from '@uno-arco/web-vue/es/icon';
 import App from './App.vue';
-import '@arco-design/web-vue/dist/arco.css';
+import '@uno-arco/web-vue/dist/arco.css';
 
 const app = createApp(App);
 app.use(ArcoVue);

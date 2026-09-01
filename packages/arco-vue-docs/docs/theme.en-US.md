@@ -13,13 +13,13 @@ ArcoDesign defines a set of default particle variables, and the theme can be cus
 
 ArcoDesign uses [Less](http://lesscss.org/ "_blank") as a pre-compiled language. Through the **modifyVars** function of Less, you can easily customize the style particle variables.
 
-Global variables can be found in `global.less (@arco-design/web-vue/es/style/theme/global.less)`.
+Global variables can be found in `global.less (@uno-arco/web-vue/es/style/theme/global.less)`.
 
-In the component library, we have made a very detailed extraction of component style variables, which can meet the fine-grained customization of components. For example, the style variable `token.less (@arco-design/web-vue/es/button/style/token.less)` list corresponding to the `Button` component.
+In the component library, we have made a very detailed extraction of component style variables, which can meet the fine-grained customization of components. For example, the style variable `token.less (@uno-arco/web-vue/es/button/style/token.less)` list corresponding to the `Button` component.
 
 ### Import component library style files
 
-If you want to customize the theme, you need to import less style files. The component library less style files can be found in `@arco-design/web-vue/dist/arco.less` or `@arco-design/web-vue/es/index.less`.
+If you want to customize the theme, you need to import less style files. The component library less style files can be found in `@uno-arco/web-vue/dist/arco.less` or `@uno-arco/web-vue/es/index.less`.
 If you use the on-demand loading method to import components, make sure to enable the import of less style files in the on-demand loading plugin.
 
 ### Vite Configuration

@@ -2,31 +2,45 @@
 meta:
   type: 开发指南
 title: 快速上手
-description: 跟随以下的步骤，快速上手组件库的使用。
+description: 跟随以下的步骤，快速上手 Uno Arco 组件库的使用。
 ```
+
+Uno Arco 是 [Arco Design Vue](https://github.com/arco-design/arco-design-vue) 的社区维护 fork，npm 包名为 `@uno-arco/web-vue`。组件 API、CSS 前缀（`arco-`）与官方版本兼容，可作为 drop-in 替代。
 
 ## Vue 版本
 
-vue >= 3.2.0
+vue >= 3.3.0
 
-**注意**：由于 `Vue3` 不再支持 IE 浏览器环境，ArcoVue 也不再支持 IE 浏览器环境。
+**注意**：由于 `Vue3` 不再支持 IE 浏览器环境，Uno Arco 也不再支持 IE 浏览器环境。
 
 ## 安装
 
 ```shell
 # npm
-npm install --save-dev @arco-design/web-vue
+npm install @uno-arco/web-vue
+# pnpm
+pnpm add @uno-arco/web-vue
 # yarn
-yarn add --dev @arco-design/web-vue
+yarn add @uno-arco/web-vue
+```
+
+从官方包迁移时，可在 `package.json` 中使用 npm alias，无需改 import 路径：
+
+```json
+{
+  "dependencies": {
+    "@arco-design/web-vue": "npm:@uno-arco/web-vue@^2.58.2"
+  }
+}
 ```
 
 ## 完整引入
 
 ```ts
 import { createApp } from 'vue'
-import ArcoVue from '@arco-design/web-vue';
+import ArcoVue from '@uno-arco/web-vue';
 import App from './App.vue';
-import '@arco-design/web-vue/dist/arco.css';
+import '@uno-arco/web-vue/dist/arco.css';
 
 const app = createApp(App);
 app.use(ArcoVue);
@@ -64,7 +78,7 @@ export default defineConfig({
 });
 ```
 
-注意：这种方法并不会处理用户在 script 中手动导入的组件，比如 Message 组件，用户仍需要手动导入组件对应的样式文件，例如 `@arco-design/web-vue/es/message/style/css.js`。
+注意：这种方法并不会处理用户在 script 中手动导入的组件，比如 Message 组件，用户仍需要手动导入组件对应的样式文件，例如 `@uno-arco/web-vue/es/message/style/css.js`。
 
 ## 按需加载与组件库主题（Arco 插件）
 
@@ -90,9 +104,9 @@ export default defineConfig({
 
 ```ts
 import { createApp } from 'vue'
-import ArcoVue from '@arco-design/web-vue';
+import ArcoVue from '@uno-arco/web-vue';
 import App from './App.vue';
-import '@arco-design/web-vue/dist/arco.css';
+import '@uno-arco/web-vue/dist/arco.css';
 
 const app = createApp(App);
 app.use(ArcoVue, {
@@ -103,7 +117,7 @@ app.mount('#app');
 ```
 
 ## 导入组件
-组件库在 `2.44.3` 版本为了兼容 nuxt3 环境，增加 `exports` 配置。这个配置会对组件库的导入产生一定影响，使用中建议从 `@arco-design/web-vue` 和 `@arco-design/web-vue/es/icon` 导入组件库和图标。
+组件库在 `2.44.3` 版本为了兼容 nuxt3 环境，增加 `exports` 配置。这个配置会对组件库的导入产生一定影响，使用中建议从 `@uno-arco/web-vue` 和 `@uno-arco/web-vue/es/icon` 导入组件库和图标。
 
 
 ## 浏览器兼容性

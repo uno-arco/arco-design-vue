@@ -2,33 +2,45 @@
 meta:
   type: Developer Guide
 title: Getting Started
-description: Follow the steps below to quickly get started using the component library.
+description: Follow the steps below to quickly get started using Uno Arco.
 ```
 
-*Auto translate by google.*
+Uno Arco is a community-maintained fork of [Arco Design Vue](https://github.com/arco-design/arco-design-vue), published on npm as `@uno-arco/web-vue`. Component APIs and CSS prefixes (`arco-`) remain compatible with the official package.
 
 ## Vue Version
 
-vue >= 3.2.0
+vue >= 3.3.0
 
-**Note**: `Vue3` does not support IE browser environment, so ArcoVue does not support IE browser environment.
+**Note**: `Vue3` does not support IE browser environment, so Uno Arco does not support IE browser environment.
 
 ## Install
 
 ```shell
 # npm
-npm install --save-dev @arco-design/web-vue
+npm install @uno-arco/web-vue
+# pnpm
+pnpm add @uno-arco/web-vue
 # yarn
-yarn add --dev @arco-design/web-vue
+yarn add @uno-arco/web-vue
+```
+
+To migrate from the official package without changing import paths, use an npm alias:
+
+```json
+{
+  "dependencies": {
+    "@arco-design/web-vue": "npm:@uno-arco/web-vue@^2.58.2"
+  }
+}
 ```
 
 ## Full import
 
 ```ts
 import { createApp } from 'vue'
-import ArcoVue from '@arco-design/web-vue';
+import ArcoVue from '@uno-arco/web-vue';
 import App from './App.vue';
-import '@arco-design/web-vue/dist/arco.css';
+import '@uno-arco/web-vue/dist/arco.css';
 
 const app = createApp(App);
 app.use(ArcoVue);
@@ -66,11 +78,11 @@ export default defineConfig({
 });
 ```
 
-Note: This method does not process the components manually imported by the user in the script, such as the Message component. The user still needs to manually import the style file corresponding to the component, such as `@arco-design/web-vue/es/message/style/css.js` .
+Note: This method does not process the components manually imported by the user in the script, such as the Message component. The user still needs to manually import the style file corresponding to the component, such as `@uno-arco/web-vue/es/message/style/css.js` .
 
 ## On-demand loading and component library themes (Arco plugin)
 
-In addition, you can also use the Vite plugin provided by Arco for on-demand loading and component library style configuration, [@arco-plugins/vite-vue](https://github.com/arco-design/arco-plugins/tree/main/ packages/plugin-vite-vue) plugin will automatically load component styles.
+In addition, you can also use the Vite plugin provided by Arco for on-demand loading and component library style configuration, [@arco-plugins/vite-vue](https://github.com/arco-design/arco-plugins/tree/main/packages/plugin-vite-vue) plugin will automatically load component styles.
 
 ```ts
 import { defineConfig } from 'vite'
@@ -92,9 +104,9 @@ When ArcoVue is introduced, a global configuration object can be passed in.
 
 ```ts
 import { createApp } from 'vue'
-import ArcoVue from '@arco-design/web-vue';
+import ArcoVue from '@uno-arco/web-vue';
 import App from './App.vue';
-import '@arco-design/web-vue/dist/arco.css';
+import '@uno-arco/web-vue/dist/arco.css';
 
 const app = createApp(App);
 app.use(ArcoVue, {
@@ -105,7 +117,7 @@ app.mount('#app');
 ```
 
 ## import component
-In order to be compatible with the nuxt3 environment in the `2.44.3` version of the component library, the `exports` configuration is added. This configuration will have a certain impact on the import of component libraries. It is recommended to import component libraries and icons from `@arco-design/web-vue` and `@arco-design/web-vue/es/icon`.
+In order to be compatible with the nuxt3 environment in the `2.44.3` version of the component library, the `exports` configuration is added. This configuration will have a certain impact on the import of component libraries. It is recommended to import component libraries and icons from `@uno-arco/web-vue` and `@uno-arco/web-vue/es/icon`.
 
 
 ## Supported platforms

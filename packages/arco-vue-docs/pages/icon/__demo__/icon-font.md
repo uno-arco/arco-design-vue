@@ -17,7 +17,7 @@ title:
 </template>
 
 <script>
-import { Icon } from '@arco-design/web-vue';
+import { Icon } from '@uno-arco/web-vue';
 
 const IconFont = Icon.addFromIconFontCn({ src: 'https://at.alicdn.com/t/font_180975_ue66sq60vyd.js' });
 
@@ -88,7 +88,7 @@ See [iconfont.cn](https://www.iconfont.cn/help/detail?spm=a313x.7781069.19989104
 </template>
 
 <script>
-import { Icon } from '@arco-design/web-vue';
+import { Icon } from '@uno-arco/web-vue';
 
 const IconFont = Icon.addFromIconFontCn({ src: 'https://at.alicdn.com/t/font_180975_ue66sq60vyd.js' });
 

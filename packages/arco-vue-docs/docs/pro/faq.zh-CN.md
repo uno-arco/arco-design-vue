@@ -43,7 +43,7 @@ description: Arco Design Pro Vue 常见问题合集
 
 ## 构建相关
 
-### 一. Rollup failed to resolve import "XXXXXX/node_modules/@arco-design/web-vue/es/xxx-xxx/style/css.js”
+### 一. Rollup failed to resolve import "XXXXXX/node_modules/@uno-arco/web-vue/es/xxx-xxx/style/css.js”
 
 报错源于按需加载构建插件(config/plugin/styleImport.ts)，该问题产生分别有以下几个原因
 

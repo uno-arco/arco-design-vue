@@ -44,7 +44,7 @@ If you do not need this function, you can delete husky related files and corresp
 
 ## Build
 
-### 1. Rollup failed to resolve import "XXXXXX/node_modules/@arco-design/web-vue/es/xxx-xxx/style/css.js”
+### 1. Rollup failed to resolve import "XXXXXX/node_modules/@uno-arco/web-vue/es/xxx-xxx/style/css.js”
 
 The error comes from loading the build plugin (config/plugin/styleImport.ts) on demand. There are several reasons for this problem.
 
