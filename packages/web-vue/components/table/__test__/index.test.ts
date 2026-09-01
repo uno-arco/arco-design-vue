@@ -246,4 +246,40 @@ describe('Table', () => {
     await nextTick();
     expect(selectedKeys.value).toEqual([]);
   });
+
+  test('tree selection header is checked when all leaves selected', async () => {
+    const treeData = [
+      {
+        key: 'p1',
+        name: 'Parent',
+        children: [
+          { key: 'c1', name: 'Child1', age: 1 },
+          { key: 'c2', name: 'Child2', age: 2 },
+        ],
+      },
+    ];
+    const wrapper = mount(Table as any, {
+      props: {
+        columns: demoColumns,
+        data: treeData,
+        pagination: false,
+        defaultExpandAllRows: true,
+        rowSelection: {
+          type: 'checkbox',
+          showCheckedAll: true,
+          checkStrictly: false,
+        },
+        selectedKeys: ['c1', 'c2'],
+      },
+    });
+    await nextTick();
+    const headerCheckbox = wrapper.find('.arco-table-th .arco-checkbox');
+    expect(headerCheckbox.exists()).toBe(true);
+    expect(headerCheckbox.classes().join(' ')).toContain(
+      'arco-checkbox-checked'
+    );
+    expect(headerCheckbox.classes().join(' ')).not.toContain(
+      'arco-checkbox-indeterminate'
+    );
+  });
 });

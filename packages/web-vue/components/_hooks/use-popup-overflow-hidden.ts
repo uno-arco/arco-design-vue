@@ -25,16 +25,17 @@ export default function usePopupOverflowHidden(
       const originStyle = container.value.style;
       needResetContainerStyle = true;
 
-      // Record and set the width
       const containerScrollBarWidth = getScrollBarWidth(container.value);
       if (containerScrollBarWidth) {
-        originContainerStyle.width = originStyle.width;
-        container.value.style.width = `calc(${
-          container.value.style.width || '100%'
-        } - ${containerScrollBarWidth}px)`;
+        originContainerStyle.paddingRight = originStyle.paddingRight;
+        const computedPaddingRight = Number.parseFloat(
+          window.getComputedStyle(container.value).paddingRight || '0'
+        );
+        container.value.style.paddingRight = `${
+          computedPaddingRight + containerScrollBarWidth
+        }px`;
       }
 
-      // Record and set overflow
       originContainerStyle.overflow = originStyle.overflow;
       container.value.style.overflow = 'hidden';
     }

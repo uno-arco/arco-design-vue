@@ -6,8 +6,7 @@ export const useOverflow = (elementRef: Ref<HTMLElement | undefined>) => {
 
   const originStyle = {
     overflow: '',
-    width: '',
-    boxSizing: '',
+    paddingRight: '',
   };
 
   const setOverflowHidden = () => {
@@ -17,11 +16,17 @@ export const useOverflow = (elementRef: Ref<HTMLElement | undefined>) => {
         const scrollBarWidth = getScrollBarWidth(element);
         if (scrollBarWidth > 0 || isScroll(element)) {
           originStyle.overflow = element.style.overflow;
-          originStyle.width = element.style.width;
-          originStyle.boxSizing = element.style.boxSizing;
+          originStyle.paddingRight = element.style.paddingRight;
+
+          // Prefer padding-right over width so iframe / nested layouts don't
+          // reflow when the body scrollbar is locked (Drawer / Modal).
+          const computedPaddingRight = Number.parseFloat(
+            window.getComputedStyle(element).paddingRight || '0'
+          );
           element.style.overflow = 'hidden';
-          element.style.width = `${element.offsetWidth - scrollBarWidth}px`;
-          element.style.boxSizing = 'border-box';
+          element.style.paddingRight = `${
+            computedPaddingRight + scrollBarWidth
+          }px`;
 
           isSetOverflow.value = true;
         }
@@ -33,8 +38,7 @@ export const useOverflow = (elementRef: Ref<HTMLElement | undefined>) => {
     if (elementRef.value && isSetOverflow.value) {
       const element = elementRef.value;
       element.style.overflow = originStyle.overflow;
-      element.style.width = originStyle.width;
-      element.style.boxSizing = originStyle.boxSizing;
+      element.style.paddingRight = originStyle.paddingRight;
 
       isSetOverflow.value = false;
     }

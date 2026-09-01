@@ -20,6 +20,7 @@ export interface TableContext {
   slots: Slots;
   sorter: Sorter | undefined;
   currentAllEnabledRowKeys: BaseType[];
+  currentAllEnabledLeafRowKeys: BaseType[];
   currentSelectedRowKeys: BaseType[];
   checkStrictly: boolean;
   filters: Filters;

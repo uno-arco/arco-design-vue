@@ -573,17 +573,21 @@ export default defineComponent({
           </Component>
         );
 
-        if (showCSSTooltip.value) {
+        // Keep Tooltip/Popover mounted so enabling it does not change layout
+        // and retrigger ResizeObserver (Drawer open race / infinite loop).
+        if (showTooltip) {
           return (
-            <TooltipComponent
-              {...tooltipProps}
-              onResize={() => calTooltip()}
-              v-slots={{
-                content: () => fullText.value,
-              }}
-            >
-              {Outer}
-            </TooltipComponent>
+            <ResizeObserver onResize={() => calTooltip()}>
+              <TooltipComponent
+                {...tooltipProps}
+                disabled={!showCSSTooltip.value}
+                v-slots={{
+                  content: () => fullText.value,
+                }}
+              >
+                {Outer}
+              </TooltipComponent>
+            </ResizeObserver>
           );
         }
 
@@ -608,9 +612,10 @@ export default defineComponent({
             {...titleAttrs}
             {...attrs}
           >
-            {showEllipsis && showTooltip ? (
+            {showTooltip ? (
               <TooltipComponent
                 {...tooltipProps}
+                disabled={!showEllipsis}
                 v-slots={{
                   content: () => fullText.value,
                 }}

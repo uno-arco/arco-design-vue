@@ -960,6 +960,25 @@ export default defineComponent({
       return keys;
     });
 
+    const currentAllEnabledLeafRowKeys = computed(() => {
+      const keys: BaseType[] = [];
+
+      const travel = (data: TableDataWithRaw[]) => {
+        for (const record of data) {
+          if (record.isLeaf) {
+            if (!record.disabled) {
+              keys.push(record.key);
+            }
+          } else if (record.children) {
+            travel(record.children);
+          }
+        }
+      };
+      travel(flattenData.value);
+
+      return keys;
+    });
+
     const {
       isRadio,
       selectedRowKeys,
@@ -1462,6 +1481,7 @@ export default defineComponent({
         resizingColumn,
         checkStrictly,
         currentAllEnabledRowKeys,
+        currentAllEnabledLeafRowKeys,
         currentSelectedRowKeys,
         addColumn,
         removeColumn,

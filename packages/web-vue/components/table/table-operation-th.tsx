@@ -35,13 +35,18 @@ export default defineComponent({
       let checked = false;
       let indeterminate = false;
 
+      // Non-strict tree selection only stores leaf keys; compare against leaves.
+      const enabledKeys = tableCtx.checkStrictly
+        ? tableCtx.currentAllEnabledRowKeys
+        : tableCtx.currentAllEnabledLeafRowKeys;
+
       const currentSelectedEnabledRowKeys =
         tableCtx.currentSelectedRowKeys?.filter(
-          (key) => tableCtx.currentAllEnabledRowKeys?.includes(key) ?? true
+          (key) => enabledKeys?.includes(key) ?? true
         ) ?? [];
 
       const selectedNumber = currentSelectedEnabledRowKeys.length;
-      const totalEnabledNumber = tableCtx.currentAllEnabledRowKeys?.length ?? 0;
+      const totalEnabledNumber = enabledKeys?.length ?? 0;
       if (selectedNumber > 0) {
         if (selectedNumber >= totalEnabledNumber) {
           checked = true;

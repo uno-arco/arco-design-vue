@@ -373,6 +373,26 @@ export default defineComponent({
       expandChild,
     });
 
+    // Panel has no popup open event — sync path/active from v-model on mount/change.
+    watch(
+      [computedValueMap, optionInfos],
+      () => {
+        if (computedValueMap.value.size > 0) {
+          const keys = Array.from(computedValueMap.value.keys());
+          const lastKey = keys[keys.length - 1];
+          const option = leafOptionMap.get(lastKey);
+          if (option && option.key !== activeKey.value) {
+            setSelectedPath(option.key);
+            setActiveKey(option.key);
+          }
+        } else {
+          setSelectedPath();
+          setActiveKey();
+        }
+      },
+      { immediate: true }
+    );
+
     provide(
       cascaderInjectionKey,
       reactive({

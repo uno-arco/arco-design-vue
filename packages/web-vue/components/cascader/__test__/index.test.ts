@@ -219,4 +219,20 @@ describe('Cascader', () => {
     await nextTick();
     expect(wrapper.emitted('change')?.at(-1)).toEqual(['chaoyang']);
   });
+
+  test('cascader panel syncs selection path from modelValue', async () => {
+    const { CascaderPanel } = await import('../index');
+    const wrapper = mount(CascaderPanel as any, {
+      props: {
+        options,
+        modelValue: 'haidian',
+      },
+    });
+    await nextTick();
+    expect(wrapper.text()).toContain('Haidian');
+    const activeLeaves = wrapper
+      .findAll('.arco-cascader-option-active')
+      .filter((node) => node.text().includes('Haidian'));
+    expect(activeLeaves.length).toBeGreaterThan(0);
+  });
 });
