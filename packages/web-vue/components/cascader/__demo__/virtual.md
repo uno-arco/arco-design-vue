@@ -6,13 +6,13 @@ title:
 
 ## zh-CN
 
-虚拟列表的使用方法。
+虚拟列表的使用方法。搜索面板在设置 `virtual-list-props` 后同样会走虚拟滚动；大数据量下搜索会自动防抖并限制结果数量，避免页面卡死。
 
 ---
 
 ## en-US
 
-How to use the virtual list.
+How to use the virtual list. With `virtual-list-props`, the search panel is virtualized as well; large option trees debounce and cap search results to avoid freezing the page.
 
 ---
 

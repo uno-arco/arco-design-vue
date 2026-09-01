@@ -59,8 +59,9 @@
         :active-key="activeKey"
         :multiple="multiple"
         :check-strictly="checkStrictly"
-        :loading="loading"
+        :loading="loading || isFilterPending"
         :path-label="!searchOptionOnlyLabel"
+        :virtual-list-props="virtualListProps"
       >
         <template v-if="$slots.empty" #empty>
           <slot name="empty" />
@@ -655,28 +656,78 @@ export default defineComponent({
       () => props.popupVisible ?? _popupVisible.value
     );
 
-    const getFilteredStatus = (label: string) => {
-      return label
-        ?.toLocaleLowerCase()
-        .includes(computedInputValue.value?.toLocaleLowerCase());
+    // Large trees: debounce filtering and cap results so search won't freeze the page.
+    const FILTER_LARGE_OPTION_THRESHOLD = 2000;
+    const FILTER_RESULT_LIMIT = 200;
+    const filterInputValue = ref(computedInputValue.value);
+    const isFilterPending = ref(false);
+
+    const commitFilterInputValue = (value: string) => {
+      filterInputValue.value = value;
+      isFilterPending.value = false;
     };
 
+    const debouncedCommitFilterInputValue = debounce((value: string) => {
+      commitFilterInputValue(value);
+    }, props.searchDelay);
+
+    watch(
+      computedInputValue,
+      (value) => {
+        const optionCount = props.checkStrictly
+          ? optionMap.size
+          : leafOptionSet.size;
+        if (!value) {
+          commitFilterInputValue('');
+          return;
+        }
+        if (optionCount > FILTER_LARGE_OPTION_THRESHOLD) {
+          isFilterPending.value = true;
+          debouncedCommitFilterInputValue(value);
+        } else {
+          commitFilterInputValue(value);
+        }
+      },
+      { immediate: true }
+    );
+
     const filteredLeafOptions = computed(() => {
-      const options = props.checkStrictly
-        ? Array.from(optionMap.values())
-        : Array.from(leafOptionSet);
+      const input = filterInputValue.value;
+      if (!input) {
+        return [];
+      }
 
-      return options.filter((item) => {
+      const source = props.checkStrictly
+        ? optionMap.values()
+        : leafOptionSet.values();
+      const inputLower = input.toLocaleLowerCase();
+      const result: CascaderOptionInfo[] = [];
+
+      for (const item of source) {
+        let matched = false;
         if (isFunction(props.filterOption)) {
-          return props.filterOption(computedInputValue.value, item.raw);
+          matched = props.filterOption(input, item.raw);
+        } else if (props.checkStrictly) {
+          matched = Boolean(
+            item.label?.toLocaleLowerCase().includes(inputLower)
+          );
+        } else {
+          matched = Boolean(
+            item.path?.some((leaf) =>
+              leaf.label?.toLocaleLowerCase().includes(inputLower)
+            )
+          );
         }
 
-        if (props.checkStrictly) {
-          return getFilteredStatus(item.label);
+        if (matched) {
+          result.push(item);
+          if (result.length >= FILTER_RESULT_LIMIT) {
+            break;
+          }
         }
+      }
 
-        return item.path?.find((leaf) => getFilteredStatus(leaf.label));
-      });
+      return result;
     });
 
     const updateValue = (values: UnionType[] | UnionType[][]) => {
@@ -994,6 +1045,7 @@ export default defineComponent({
       mergedDisabled,
       handleKeyDown,
       totalLevel,
+      isFilterPending,
     };
   },
 });

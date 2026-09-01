@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import Cascader from '../cascader.vue';
 
 const options = [
@@ -144,5 +145,41 @@ describe('Cascader', () => {
 
     await input.trigger('keydown', { key: 'Enter' });
     expect(wrapper.emitted('change')?.[0]).toEqual(['haidian']);
+  });
+
+  test('search caps filtered leaf options', async () => {
+    const manyOptions = Array.from({ length: 250 }, (_, index) => ({
+      value: `v${index}`,
+      label: `SameLabel ${index}`,
+    }));
+    const wrapper = mount(Cascader, {
+      props: {
+        options: manyOptions,
+        allowSearch: true,
+      },
+    });
+    const input = wrapper.find('input');
+    await input.trigger('click');
+    await input.setValue('SameLabel');
+    await nextTick();
+    const panel = wrapper.findComponent({ name: 'CascaderSearchPanel' });
+    expect(panel.exists()).toBe(true);
+    expect(panel.props('options').length).toBe(200);
+  });
+
+  test('search panel uses virtual list when configured', async () => {
+    const wrapper = mount(Cascader, {
+      props: {
+        options,
+        allowSearch: true,
+        virtualListProps: { height: 200 },
+      },
+    });
+    const input = wrapper.find('input');
+    await input.trigger('click');
+    await input.setValue('a');
+    await nextTick();
+    const panel = wrapper.findComponent({ name: 'CascaderSearchPanel' });
+    expect(panel.find('.arco-virtual-list').exists()).toBe(true);
   });
 });

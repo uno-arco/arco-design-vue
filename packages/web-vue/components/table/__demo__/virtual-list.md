@@ -7,14 +7,16 @@ title:
 ## zh-CN
 
 设置 `virtual-list-props` 开启虚拟列表功能。
-目前虚拟滚动表格仍有限制：展开行、树形数据支持不完整；固定列可用但不保证与复杂合并单元格等场景完全兼容。
+目前虚拟滚动表格仍有限制：展开行、树形数据支持不完整；固定列可用但不保证复杂场景完全兼容。
+**`span-method` / `span-all`（单元格合并）与虚拟列表互斥，请勿同时开启**——合并依赖窗口外的行节点，虚拟化后会导致错乱；后续若支持会单独说明。
 
 ---
 
 ## en-US
 
 Set `virtual-list-props` to enable the virtual list function.
-Virtual scrolling tables still have limitations: expanded rows and tree data are incomplete; fixed columns work but may not be fully reliable with complex cell spans.
+Virtual scrolling tables still have limitations: expanded rows and tree data are incomplete; fixed columns work but may not be fully reliable in complex scenarios.
+**Do not use `span-method` / `span-all` together with virtual list**—merged cells need rows outside the viewport, which virtualization omits and causes layout bugs. Dedicated support may come later.
 
 ---
 
