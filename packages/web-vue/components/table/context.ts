@@ -45,6 +45,7 @@ export interface TableContext {
   onThMouseDown: (dataIndex: string, ev: MouseEvent) => void;
   /** Measured column / operation widths from header cells (for sticky offsets). */
   thWidth: Record<string, number>;
+  checkboxProps?: (record: TableData) => Record<string, any>;
 }
 
 export interface TableColumnContext {
