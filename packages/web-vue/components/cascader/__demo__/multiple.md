@@ -6,77 +6,78 @@ title:
 
 ## zh-CN
 
-通过设置 `multiple` 开启多选模式。
+通过设置 `multiple` 开启多选模式。设置 checkedStrategy 属性设置数据回显方式（仅在多选模式multiple: true && 非严格模式checkStrictly: false 下生效）。
 
 ---
 
 ## en-US
 
-Enable multiple selection mode by setting `multiple`.
+Enable multiple selection mode by setting `multiple`. Set the checkedStrategy property to set the data display method (only valid when multiple: true && checkStrictly: false).
 
 ---
 
 ```vue
 <template>
-  <a-cascader
-    :options="options"
-    :default-value="['datunli']"
-    :style="{ width: '320px' }"
-    placeholder="Please select ..."
-    multiple
-  />
+  <a-cascader :options="options" :default-value="['chaoyang']" :style="{width:'320px'}" placeholder="Please select ..." multiple checkedStrategy="parent" />
 </template>
 
-<script setup lang="ts">
-const options = [
-  {
-    value: 'beijing',
-    label: 'Beijing',
-    children: [
+<script>
+export default {
+  setup() {
+    const options = [
       {
-        value: 'chaoyang',
-        label: 'ChaoYang',
+        value: 'beijing',
+        label: 'Beijing',
         children: [
           {
-            value: 'datunli',
-            label: 'Datunli',
+            value: 'chaoyang',
+            label: 'ChaoYang',
+            children: [
+              {
+                value: 'datunli',
+                label: 'Datunli',
+              },
+            ],
+          },
+          {
+            value: 'haidian',
+            label: 'Haidian',
+          },
+          {
+            value: 'dongcheng',
+            label: 'Dongcheng',
+          },
+          {
+            value: 'xicheng',
+            label: 'Xicheng',
+            children: [
+              {
+                value: 'jinrongjie',
+                label: 'Jinrongjie',
+              },
+              {
+                value: 'tianqiao',
+                label: 'Tianqiao',
+              },
+            ],
           },
         ],
       },
       {
-        value: 'haidian',
-        label: 'Haidian',
-      },
-      {
-        value: 'dongcheng',
-        label: 'Dongcheng',
-      },
-      {
-        value: 'xicheng',
-        label: 'Xicheng',
+        value: 'shanghai',
+        label: 'Shanghai',
         children: [
           {
-            value: 'jinrongjie',
-            label: 'Jinrongjie',
-          },
-          {
-            value: 'tianqiao',
-            label: 'Tianqiao',
+            value: 'huangpu',
+            label: 'Huangpu',
           },
         ],
       },
-    ],
+    ];
+    return {
+      options
+    }
   },
-  {
-    value: 'shanghai',
-    label: 'Shanghai',
-    children: [
-      {
-        value: 'huangpu',
-        label: 'Huangpu',
-      },
-    ],
-  },
-];
+}
 </script>
 ```
