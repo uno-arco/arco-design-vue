@@ -70,7 +70,6 @@ import {
   ref,
   toRefs,
   watch,
-  watchEffect,
 } from 'vue';
 import { TimePickerProps } from '../time-picker/interface';
 import {
@@ -90,7 +89,6 @@ import {
   isValueChange,
   getNow,
   getDateValue,
-  initializeDateLocale,
   toLocal,
 } from '../_utils/date';
 import useState from '../_hooks/use-state';
@@ -115,7 +113,6 @@ import { EmitType } from '../_utils/types';
 import { getReturnRangeValue } from './hooks/use-value-format';
 import { Size } from '../_utils/constant';
 import { useFormItem } from '../_hooks/use-form-item';
-import { useI18n } from '../locale';
 import { configProviderInjectionKey } from '../config-provider/context';
 import RenderFunction from '../_components/render-function';
 
@@ -493,11 +490,7 @@ export default defineComponent({
       clearRangeOnReselect,
     } = toRefs(props);
 
-    const { locale: globalLocal } = useI18n();
     const configCtx = inject(configProviderInjectionKey, undefined);
-    watchEffect(() => {
-      initializeDateLocale(globalLocal.value, dayStartOfWeek.value);
-    });
 
     const mergedExchangeTime = computed(() => {
       return !(!exchangeTime.value || !(configCtx?.exchangeTime ?? true));

@@ -64,7 +64,6 @@ import {
   ref,
   toRefs,
   watch,
-  watchEffect,
   onUnmounted,
 } from 'vue';
 import {
@@ -72,7 +71,6 @@ import {
   getDayjsValue,
   isValueChange,
   getDateValue,
-  initializeDateLocale,
   toLocal,
 } from '../_utils/date';
 import { getPrefixCls } from '../_utils/global-config';
@@ -104,7 +102,6 @@ import { mergeValueWithTime } from './utils';
 import { Size } from '../_utils/constant';
 import { useReturnValue } from './hooks/use-value-format';
 import { useFormItem } from '../_hooks/use-form-item';
-import { useI18n } from '../locale';
 import RenderFunction from '../_components/render-function';
 
 /**
@@ -513,11 +510,6 @@ export default defineComponent({
       utcOffset,
       timezone,
     } = toRefs(props);
-
-    const { locale: globalLocal } = useI18n();
-    watchEffect(() => {
-      initializeDateLocale(globalLocal.value, dayStartOfWeek.value);
-    });
 
     const { mergedDisabled, eventHandlers } = useFormItem({ disabled });
 
