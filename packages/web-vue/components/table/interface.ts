@@ -10,7 +10,7 @@ export const TABLE_PAGE_POSITION = [
   'bottom',
   'br',
 ] as const;
-export type TablePagePosition = typeof TABLE_PAGE_POSITION[number];
+export type TablePagePosition = (typeof TABLE_PAGE_POSITION)[number];
 
 export interface TableData {
   /**
@@ -362,6 +362,12 @@ export interface TableRowSelection {
    * @version 2.32.0
    */
   onlyCurrent?: boolean;
+  /**
+   * @zh 选择框的属性配置
+   * @en Checkbox props for the selection column
+   * @version 2.59.1
+   */
+  checkboxProps?: (record: TableData) => Record<string, any>;
 }
 
 export interface TableExpandable {

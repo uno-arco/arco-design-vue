@@ -282,4 +282,33 @@ describe('Table', () => {
       'arco-checkbox-indeterminate'
     );
   });
+
+  test('rowSelection.checkboxProps can disable a row', async () => {
+    const wrapper = mount(Table as any, {
+      props: {
+        columns: demoColumns,
+        data: [
+          { key: '1', name: 'Alice', age: 18 },
+          { key: '2', name: 'Bob', age: 22 },
+        ],
+        pagination: false,
+        rowSelection: {
+          type: 'checkbox',
+          showCheckedAll: true,
+          checkboxProps: (record: { key: string }) => ({
+            disabled: record.key === '2',
+          }),
+        },
+      },
+    });
+    await nextTick();
+    const checkboxes = wrapper.findAll('.arco-table-td .arco-checkbox');
+    expect(checkboxes).toHaveLength(2);
+    expect(checkboxes[0].classes().join(' ')).not.toContain(
+      'arco-checkbox-disabled'
+    );
+    expect(checkboxes[1].classes().join(' ')).toContain(
+      'arco-checkbox-disabled'
+    );
+  });
 });

@@ -103,10 +103,20 @@ export default defineComponent({
       }
       if (props.operationColumn.name === 'selection-checkbox') {
         const value = props.record.key;
+        const {
+          disabled: _ignoredDisabled,
+          modelValue: _ignoredModelValue,
+          indeterminate: _ignoredIndeterminate,
+          uninjectGroupContext: _ignoredUninject,
+          onChange: _ignoredOnChange,
+          onClick: _ignoredOnClick,
+          ...checkboxProps
+        } = tableCtx.checkboxProps?.(props.record.raw) ?? {};
 
         if (!tableCtx.checkStrictly && !props.record.isLeaf) {
           return (
             <Checkbox
+              {...checkboxProps}
               modelValue={selectionStatus.value.checked}
               indeterminate={selectionStatus.value.indeterminate}
               disabled={Boolean(props.record.disabled)}
@@ -122,6 +132,7 @@ export default defineComponent({
 
         return (
           <Checkbox
+            {...checkboxProps}
             modelValue={props.selectedRowKeys?.includes(value) ?? false}
             disabled={Boolean(props.record.disabled)}
             uninjectGroupContext
@@ -135,8 +146,17 @@ export default defineComponent({
       }
       if (props.operationColumn.name === 'selection-radio') {
         const value = props.record.key;
+        const {
+          disabled: _ignoredDisabled,
+          modelValue: _ignoredModelValue,
+          uninjectGroupContext: _ignoredUninject,
+          onChange: _ignoredOnChange,
+          onClick: _ignoredOnClick,
+          ...radioProps
+        } = tableCtx.checkboxProps?.(props.record.raw) ?? {};
         return (
           <Radio
+            {...radioProps}
             modelValue={props.selectedRowKeys?.includes(value) ?? false}
             disabled={Boolean(props.record.disabled)}
             uninjectGroupContext

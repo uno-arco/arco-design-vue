@@ -905,6 +905,12 @@ export default defineComponent({
 
     const disabledKeys = new Set();
 
+    const getCheckboxProps = (record: TableData) =>
+      rowSelection.value?.checkboxProps?.(record) ?? {};
+
+    const isSelectionDisabled = (record: TableData) =>
+      Boolean(record.disabled || getCheckboxProps(record).disabled);
+
     const allRowKeys = computed(() => {
       const allRowKeys: BaseType[] = [];
       disabledKeys.clear();
@@ -912,7 +918,7 @@ export default defineComponent({
         if (isArray(data) && data.length > 0) {
           for (const record of data) {
             allRowKeys.push(record[rowKey.value]);
-            if (record.disabled) {
+            if (isSelectionDisabled(record)) {
               disabledKeys.add(record[rowKey.value]);
             }
             if (record.children) {
@@ -1051,7 +1057,7 @@ export default defineComponent({
           const record: TableDataWithRaw = {
             raw: _record,
             key: _record[props.rowKey],
-            disabled: _record.disabled,
+            disabled: isSelectionDisabled(_record),
             expand: _record.expand,
             isLeaf: _record.isLeaf,
           };
@@ -1492,6 +1498,7 @@ export default defineComponent({
         onFilterChange: handleFilterChange,
         onThMouseDown: handleThMouseDown,
         thWidth,
+        checkboxProps: (record: TableData) => getCheckboxProps(record),
       })
     );
 
