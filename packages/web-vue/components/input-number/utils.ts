@@ -42,3 +42,24 @@ export function toSafeString(number: number | string): string {
 
   return nativeNumberStr;
 }
+
+/**
+ * Map cursor position from pre-format input to formatted display value.
+ */
+export function resolveFormattedCursor(
+  inputValue: string,
+  selectionStart: number,
+  formattedValue: string,
+  parser: (value: string) => string = (value) => value
+): number {
+  const parsedBeforeCursor = parser(inputValue.slice(0, selectionStart));
+  const targetLength = parsedBeforeCursor.length;
+
+  for (let i = 0; i <= formattedValue.length; i++) {
+    if (parser(formattedValue.slice(0, i)).length >= targetLength) {
+      return i;
+    }
+  }
+
+  return formattedValue.length;
+}

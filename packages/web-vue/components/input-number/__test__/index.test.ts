@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils';
 import InputNumber from '../index';
+import { resolveFormattedCursor } from '../utils';
 
 describe('InputNumber', () => {
   test('number add correctly', async () => {
@@ -92,5 +93,13 @@ describe('InputNumber', () => {
     const input = wrapper.find('input');
     await input.setValue('1e5');
     expect(input.element.value).toBe('1');
+  });
+
+  test('resolveFormattedCursor keeps cursor after thousand separator format', () => {
+    const parser = (value: string) => value.replace(/,/g, '');
+
+    expect(resolveFormattedCursor('1111', 1, '1,111', parser)).toBe(1);
+    expect(resolveFormattedCursor('1234', 2, '1,234', parser)).toBe(3);
+    expect(resolveFormattedCursor('12345', 3, '12,345', parser)).toBe(4);
   });
 });

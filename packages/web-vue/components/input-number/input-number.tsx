@@ -1,4 +1,4 @@
-import { computed, defineComponent, PropType, ref, toRefs, watch } from 'vue';
+import { computed, defineComponent, nextTick, PropType, ref, toRefs, watch } from 'vue';
 import NP from 'number-precision';
 import { getPrefixCls } from '../_utils/global-config';
 import { isNumber, isUndefined } from '../_utils/is';
@@ -12,7 +12,7 @@ import { Size } from '../_utils/constant';
 import { useFormItem } from '../_hooks/use-form-item';
 import { useSize } from '../_hooks/use-size';
 import { getKeyDownHandler, KEYBOARD_KEY } from '../_utils/keyboard';
-import { toSafeString } from './utils';
+import { toSafeString, resolveFormattedCursor } from './utils';
 
 type StepMethods = 'minus' | 'plus';
 
@@ -393,6 +393,10 @@ export default defineComponent({
     };
 
     const handleInput = (value: string, ev: Event) => {
+      const inputEl = ev.target as HTMLInputElement | null;
+      const selectionStart = inputEl?.selectionStart ?? value.length;
+      const inputValue = inputEl?.value ?? value;
+
       value = value.trim().replace(/。/g, '.');
       value = props.parser?.(value) ?? value;
 
@@ -402,8 +406,21 @@ export default defineComponent({
       }
 
       if (isNumber(Number(value)) || /^(\.|-)$/.test(value)) {
-        _value.value = props.formatter?.(value) ?? value;
+        const formatted = props.formatter?.(value) ?? value;
+        _value.value = formatted;
         updateNumberStatus(valueNumber.value);
+
+        if (props.formatter && inputEl && document.activeElement === inputEl) {
+          const nextCursor = resolveFormattedCursor(
+            inputValue,
+            selectionStart,
+            formatted,
+            props.parser
+          );
+          nextTick(() => {
+            inputEl.setSelectionRange(nextCursor, nextCursor);
+          });
+        }
 
         emit('input', valueNumber.value, _value.value, ev);
         if (props.modelEvent === 'input') {
