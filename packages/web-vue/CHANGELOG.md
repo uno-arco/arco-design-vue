@@ -2,6 +2,30 @@
 changelog: true
 ```
 
+## 2.60.0
+
+`2026-09-03`
+
+Community minor: ship user-facing fixes plus Arco React–aligned APIs (`checkedStrategy`, `maxTagCount.showPopover`, and more).
+
+### 🆕 Feature
+
+- **cascader:** Add `checkedStrategy` (`parent` \| `child`) for multiple non-strict mode (upstream [#3561](https://github.com/arco-design/arco-design-vue/pull/3561) / Arco React).
+- **input-tag / select / cascader / tree-select:** `maxTagCount` object form `{ count, showPopover }` previews omitted tags in a Popover (Arco React parity; also fixes upstream [#3439](https://github.com/arco-design/arco-design-vue/pull/3439) remove-index bug). Related [#2776](https://github.com/arco-design/arco-design-vue/issues/2776).
+- **table:** `rowSelection.checkboxProps` for per-row Checkbox props. ([#3610](https://github.com/arco-design/arco-design-vue/issues/3610))
+
+### 🐛 BugFix
+
+- **resize-box:** Clamp drag size to CSS / prop min/max. ([#3634](https://github.com/arco-design/arco-design-vue/issues/3634))
+- **tree-select:** Expand to search hits; fix multi-check under filtered search. ([#3595](https://github.com/arco-design/arco-design-vue/issues/3595), [#3591](https://github.com/arco-design/arco-design-vue/issues/3591))
+- **date-picker:** Stop mutating the global dayjs locale for `dayStartOfWeek`. ([#3518](https://github.com/arco-design/arco-design-vue/pull/3518))
+- **input-number:** Keep caret position when `formatter` inserts separators. ([#3581](https://github.com/arco-design/arco-design-vue/issues/3581))
+
+### 💎 Enhancement
+
+- **select / date-picker and other popup pickers:** Default `updateAtScroll` so popup position stays correct in fixed-height scroll containers. ([#3594](https://github.com/arco-design/arco-design-vue/issues/3594))
+- Docs navbar Design / Dev / Ecosystem absolute links on GitHub Pages; Vitest resolves `@arco-design/web-vue` alias on Linux CI.
+
 ## 2.59.0
 
 `2026-09-01`

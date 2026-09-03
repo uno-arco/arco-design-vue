@@ -10,14 +10,15 @@
 
 **不是**字节跳动 / Arco Design 官方项目。在 MIT 协议下继续维护 [arco-design/arco-design-vue](https://github.com/arco-design/arco-design-vue)：组件名（`a-button`）、CSS 前缀（`arco-`）、主题 token 都保持兼容。
 
-# 为什么选 Uno Arco（`2.59.0`）
+# 为什么选 Uno Arco（`2.60.0`）
 
 相对官方最后的 `2.58.x`，本 fork 主攻未合并 bugfix，并升级到 Vue 3.5 / Vite 7 工具链。亮点包括：
 
-- **Table：** 虚拟列表 key / 固定列偏移 / scrollbar；跨页清空 `clearSelected()`
-- **Cascader：** 大数据搜索卡死、懒加载 `isLeaf`、非叶子 Enter、面板 `v-model`
+- **Table：** 虚拟列表 key / 固定列偏移 / scrollbar；跨页清空 `clearSelected()`；`checkboxProps`
+- **Cascader：** `checkedStrategy`；大数据搜索卡死、懒加载 `isLeaf`、非叶子 Enter、面板 `v-model`
+- **Select 系：** `maxTagCount.showPopover`（hover `+N` 看省略标签）；弹层默认 `updateAtScroll`
 - **Trigger / Drawer / Typography：** 滚出可视区关弹层、iframe 安全锁滚动、省略号 Tooltip 死循环
-- **还有：** ColorPicker、Select 同步、TimePicker `clear`、Affix 宽度、InputNumber 禁 `e` 等
+- **还有：** TreeSelect 搜索、DatePicker dayjs locale、InputNumber formatter 光标、ResizeBox 钳制等
 
 完整列表（带上游 issue/PR）：[更新日志](./packages/web-vue/CHANGELOG.zh-CN.md)。Table `span-method` + 虚拟列表等难项仍不支持（[#3666](https://github.com/arco-design/arco-design-vue/issues/3666)）。
 
@@ -34,7 +35,7 @@ pnpm add @uno-arco/web-vue
 ```json
 {
   "dependencies": {
-    "@arco-design/web-vue": "npm:@uno-arco/web-vue@^2.59.0"
+    "@arco-design/web-vue": "npm:@uno-arco/web-vue@^2.60.0"
   }
 }
 ```

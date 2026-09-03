@@ -2,6 +2,30 @@
 changelog: true
 ```
 
+## 2.60.0
+
+`2026-09-03`
+
+社区维护小版本：合入一批用户可感知的修复与对齐 Arco React 的能力（`checkedStrategy`、`maxTagCount.showPopover` 等）。
+
+### 🆕 新增功能
+
+- **cascader:** 多选非严格模式支持 `checkedStrategy`（`parent` \| `child`），对齐上游 [#3561](https://github.com/arco-design/arco-design-vue/pull/3561) / Arco React。
+- **input-tag / select / cascader / tree-select:** `maxTagCount` 支持对象形式 `{ count, showPopover }`，hover `+N` 以 Popover 查看被省略标签（对齐 Arco React；并修正上游 [#3439](https://github.com/arco-design/arco-design-vue/pull/3439) 弹层内关闭标签 index 错误）。相关 [#2776](https://github.com/arco-design/arco-design-vue/issues/2776)。
+- **table:** `rowSelection.checkboxProps`，可为行选择框传入 Checkbox 属性。([#3610](https://github.com/arco-design/arco-design-vue/issues/3610))
+
+### 🐛 问题修复
+
+- **resize-box:** 拖拽尺寸钳制到 CSS / prop 的 min/max。([#3634](https://github.com/arco-design/arco-design-vue/issues/3634))
+- **tree-select:** 搜索后展开到命中节点；多选过滤下勾选行为正确。([#3595](https://github.com/arco-design/arco-design-vue/issues/3595), [#3591](https://github.com/arco-design/arco-design-vue/issues/3591))
+- **date-picker:** `dayStartOfWeek` 不再污染全局 dayjs locale。([#3518](https://github.com/arco-design/arco-design-vue/pull/3518))
+- **input-number:** `formatter` 插入分隔符时保持光标位置。([#3581](https://github.com/arco-design/arco-design-vue/issues/3581))
+
+### 💎 功能优化
+
+- **select / date-picker 等弹出选择器:** 默认启用 `updateAtScroll`，固定高度容器内滚动时弹出层位置更稳。([#3594](https://github.com/arco-design/arco-design-vue/issues/3594))
+- 文档站导航 Design / Dev / Ecosystem 在 GitHub Pages 下使用绝对链接；Vitest 在 Linux CI 解析 `@arco-design/web-vue` alias。
+
 ## 2.59.0
 
 `2026-09-01`

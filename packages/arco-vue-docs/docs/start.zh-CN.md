@@ -7,7 +7,7 @@ description: 跟随以下的步骤，快速上手 Uno Arco 组件库的使用。
 
 Uno Arco 是 [Arco Design Vue](https://github.com/arco-design/arco-design-vue) 的社区维护 fork，npm 包名为 `@uno-arco/web-vue`。组件 API、CSS 前缀（`arco-`）与官方版本兼容，可作为 drop-in 替代。
 
-当前稳定版 **`2.59.0`** 在官方 `2.58.x` 基础上合入大量未合并修复（Table 虚拟列表/固定列、Cascader 搜索与懒加载、Trigger/Drawer/Typography 等）。带上游链接的完整列表见 [CHANGELOG](https://github.com/uno-arco/arco-design-vue/blob/main/packages/web-vue/CHANGELOG.zh-CN.md)。问题请提到 [Uno Arco Issues](https://github.com/uno-arco/arco-design-vue/issues)。
+当前稳定版 **`2.60.0`** 在官方 `2.58.x` 基础上合入大量未合并修复与对齐 React 的能力（Cascader `checkedStrategy`、`maxTagCount.showPopover`、Table `checkboxProps`、弹层 `updateAtScroll` 等）。带上游链接的完整列表见 [CHANGELOG](https://github.com/uno-arco/arco-design-vue/blob/main/packages/web-vue/CHANGELOG.zh-CN.md)。问题请提到 [Uno Arco Issues](https://github.com/uno-arco/arco-design-vue/issues)。
 
 ## Vue 版本
 
@@ -31,7 +31,7 @@ yarn add @uno-arco/web-vue
 ```json
 {
   "dependencies": {
-    "@arco-design/web-vue": "npm:@uno-arco/web-vue@^2.59.0"
+    "@arco-design/web-vue": "npm:@uno-arco/web-vue@^2.60.0"
   }
 }
 ```

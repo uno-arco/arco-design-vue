@@ -7,7 +7,7 @@ description: Follow the steps below to quickly get started using Uno Arco.
 
 Uno Arco is a community-maintained fork of [Arco Design Vue](https://github.com/arco-design/arco-design-vue), published on npm as `@uno-arco/web-vue`. Component APIs and CSS prefixes (`arco-`) remain compatible with the official package.
 
-Current stable **`2.59.0`** ports many unmerged fixes on top of official `2.58.x` (Table virtual/sticky, Cascader search & lazy load, Trigger/Drawer/Typography, and more). Full list with upstream links: [CHANGELOG](https://github.com/uno-arco/arco-design-vue/blob/main/packages/web-vue/CHANGELOG.md). Please file bugs on [Uno Arco Issues](https://github.com/uno-arco/arco-design-vue/issues).
+Current stable **`2.60.0`** ports many unmerged fixes plus React-aligned APIs on top of official `2.58.x` (Cascader `checkedStrategy`, `maxTagCount.showPopover`, Table `checkboxProps`, default `updateAtScroll`, and more). Full list with upstream links: [CHANGELOG](https://github.com/uno-arco/arco-design-vue/blob/main/packages/web-vue/CHANGELOG.md). Please file bugs on [Uno Arco Issues](https://github.com/uno-arco/arco-design-vue/issues).
 
 ## Vue Version
 
@@ -31,7 +31,7 @@ To migrate from the official package without changing import paths, use an npm a
 ```json
 {
   "dependencies": {
-    "@arco-design/web-vue": "npm:@uno-arco/web-vue@^2.59.0"
+    "@arco-design/web-vue": "npm:@uno-arco/web-vue@^2.60.0"
   }
 }
 ```

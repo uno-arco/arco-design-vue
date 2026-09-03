@@ -7,7 +7,7 @@ Uno Arco 是社区 fork，作为 drop-in 使用。组件名、CSS 前缀 `arco-`
 ```json
 {
   "dependencies": {
-    "@arco-design/web-vue": "npm:@uno-arco/web-vue@^2.59.0"
+    "@arco-design/web-vue": "npm:@uno-arco/web-vue@^2.60.0"
   }
 }
 ```
