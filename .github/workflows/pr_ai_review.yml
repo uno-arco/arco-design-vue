@@ -1,0 +1,39 @@
+# Free AI review for pull requests (Gemini AI Studio free tier).
+# Setup once:
+#   1. Get a key: https://aistudio.google.com/apikey
+#   2. Repo Settings → Secrets and variables → Actions → New secret
+#      Name: GEMINI_API_KEY
+#      Value: <your key>
+# If the secret is missing, this job skips (does not fail the PR).
+
+name: pr_ai_review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: AI PR review (Gemini)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: node .github/scripts/pr-ai-review.mjs
+        continue-on-error: true
