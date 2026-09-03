@@ -9,6 +9,7 @@ import {
 } from '../tree/interface';
 import { TriggerProps } from '../trigger';
 import { Size } from '../_utils/constant';
+import type { InputTagMaxTagCount } from '../input-tag/interface';
 
 export interface LabelValue {
   value: TreeNodeKey;
@@ -50,7 +51,7 @@ export interface TreeSelectProps {
   allowClear: boolean;
   placeholder: string | undefined;
   retainInputValue: boolean;
-  maxTagCount: number | undefined;
+  maxTagCount: InputTagMaxTagCount | undefined;
   defaultValue: TreeSelectValue | undefined;
   modelValue: TreeSelectValue | undefined;
   multiple: boolean;

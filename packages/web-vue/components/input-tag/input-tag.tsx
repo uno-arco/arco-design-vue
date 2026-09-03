@@ -17,7 +17,12 @@ import { getValueData } from './utils';
 import Tag from '../tag';
 import IconHover from '../_components/icon-hover.vue';
 import IconClose from '../icon/icon-close';
-import { InputTagFieldNames, TagData } from './interface';
+import {
+  InputTagFieldNames,
+  TagData,
+  TagDataInfo,
+  InputTagMaxTagCount,
+} from './interface';
 import { omit } from '../_utils/omit';
 import pick from '../_utils/pick';
 import ResizeObserver from '../_components/resize-observer';
@@ -25,6 +30,7 @@ import FeedbackIcon from '../_components/feedback-icon.vue';
 import { useFormItem } from '../_hooks/use-form-item';
 import { useSize } from '../_hooks/use-size';
 import { isNull, isObject, isUndefined } from '../_utils/is';
+import Popover, { PopoverProps } from '../popover';
 
 const DEFAULT_FIELD_NAMES = {
   value: 'value',
@@ -114,11 +120,11 @@ export default defineComponent({
       type: String as PropType<Size>,
     },
     /**
-     * @zh 最多展示的标签个数，`0` 表示不限制
-     * @en The maximum number of tags displayed, `0` means unlimited
+     * @zh 最多展示的标签个数，`0` 表示不限制。传入对象时可开启 `showPopover`，hover `+N` 查看被省略的标签（对齐 Arco React）
+     * @en Max tags to display; `0` means unlimited. Pass an object with `showPopover` to preview omitted tags on hover (aligned with Arco React)
      */
     maxTagCount: {
-      type: Number,
+      type: [Number, Object] as PropType<InputTagMaxTagCount>,
       default: 0,
     },
     /**
@@ -353,14 +359,38 @@ export default defineComponent({
       getValueData(computedValue.value, mergedFieldNames.value)
     );
 
+    const maxTagCountValue = computed(() => {
+      if (isObject(props.maxTagCount)) {
+        return props.maxTagCount.count;
+      }
+      return props.maxTagCount;
+    });
+
+    const showInvisibleTagsPopover = computed(
+      () => isObject(props.maxTagCount) && !!props.maxTagCount.showPopover
+    );
+
+    const invisibleTagsPopoverProps = computed((): PopoverProps => {
+      if (
+        isObject(props.maxTagCount) &&
+        isObject(props.maxTagCount.showPopover)
+      ) {
+        return props.maxTagCount.showPopover as PopoverProps;
+      }
+      return {};
+    });
+
     const tags = computed(() => {
-      if (props.maxTagCount > 0) {
-        const invisibleTags = valueData.value.length - props.maxTagCount;
-        if (invisibleTags > 0) {
-          const result = valueData.value.slice(0, props.maxTagCount);
+      if (maxTagCountValue.value > 0) {
+        const invisibleTagsNumber =
+          valueData.value.length - maxTagCountValue.value;
+        if (invisibleTagsNumber > 0) {
+          const result = valueData.value.slice(0, maxTagCountValue.value);
+          const invisibleTags = valueData.value.slice(maxTagCountValue.value);
           const raw = {
             value: '__arco__more',
-            label: `+${invisibleTags}...`,
+            label: `+${invisibleTagsNumber}...`,
+            invisibleTags,
             closable: false,
           };
           result.push({
@@ -547,23 +577,58 @@ export default defineComponent({
             },
           ]}
         >
-          {tags.value.map((item, index) => (
-            <Tag
-              key={`tag-${item.value}`}
-              class={`${prefixCls}-tag`}
-              closable={
-                !mergedDisabled.value && !props.readonly && item.closable
-              }
-              visible
-              nowrap={props.tagNowrap}
-              {...item.tagProps}
-              onClose={(ev: MouseEvent) => handleRemove(item.value, index, ev)}
-            >
-              {slots.tag?.({ data: item.raw }) ??
-                props.formatTag?.(item.raw) ??
-                item.label}
-            </Tag>
-          ))}
+          {tags.value.map((item, index) => {
+            const renderTag = (tagItem: TagDataInfo, tagIndex: number) => (
+              <Tag
+                key={`tag-${tagItem.value}`}
+                class={`${prefixCls}-tag`}
+                closable={
+                  !mergedDisabled.value && !props.readonly && tagItem.closable
+                }
+                visible
+                nowrap={props.tagNowrap}
+                {...tagItem.tagProps}
+                onClose={(ev: MouseEvent) =>
+                  handleRemove(tagItem.value, tagIndex, ev)
+                }
+              >
+                {slots.tag?.({ data: tagItem.raw }) ??
+                  props.formatTag?.(tagItem.raw) ??
+                  tagItem.label}
+              </Tag>
+            );
+
+            if (
+              showInvisibleTagsPopover.value &&
+              item.value === '__arco__more'
+            ) {
+              const invisibleTags = (item.raw?.invisibleTags ??
+                []) as TagDataInfo[];
+              return (
+                <span key={`invisible-tag-${item.value}`}>
+                  <Popover
+                    v-slots={{
+                      content: () => (
+                        <div class={`${prefixCls}-invisible-popover-content`}>
+                          {invisibleTags.map((tagItem, invisibleIndex) =>
+                            renderTag(
+                              tagItem,
+                              maxTagCountValue.value + invisibleIndex
+                            )
+                          )}
+                        </div>
+                      ),
+                    }}
+                    {...invisibleTagsPopoverProps.value}
+                  >
+                    {renderTag(item, index)}
+                  </Popover>
+                </span>
+              );
+            }
+
+            return renderTag(item, index);
+          })}
           <input
             {...inputAttrs.value}
             ref={inputRef}

@@ -14,9 +14,12 @@ const nestedOptions = [
 
 describe('Cascader checkedStrategy (#3395 / #3561)', () => {
   test('checkedStrategy is a declared component prop', () => {
-    expect(Object.prototype.hasOwnProperty.call(Cascader.props ?? {}, 'checkedStrategy')).toBe(
-      true
-    );
+    expect(
+      Object.prototype.hasOwnProperty.call(
+        Cascader.props ?? {},
+        'checkedStrategy'
+      )
+    ).toBe(true);
   });
 
   test('default checkedStrategy child emits leaf values when selecting parent', async () => {

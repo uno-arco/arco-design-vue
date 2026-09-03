@@ -147,6 +147,7 @@ import { isNodeSelectable } from '../tree/utils';
 import { Data } from '../_utils/types';
 import { ScrollbarProps } from '../scrollbar';
 import { SelectViewValue } from '../_components/select-view/interface';
+import type { InputTagMaxTagCount } from '../input-tag/interface';
 
 export default defineComponent({
   name: 'TreeSelect',
@@ -223,11 +224,11 @@ export default defineComponent({
       type: String,
     },
     /**
-     * @zh 最多显示的标签数量，仅在多选模式有效
-     * @en The maximum number of labels displayed, only valid in multi-select mode
+     * @zh 最多显示的标签数量，仅在多选模式有效。传入对象时可开启 `showPopover`（对齐 Arco React）
+     * @en The maximum number of labels displayed, only valid in multi-select mode. Pass an object with `showPopover` (aligned with Arco React)
      * */
     maxTagCount: {
-      type: Number,
+      type: [Number, Object] as PropType<InputTagMaxTagCount>,
     },
     /**
      * @zh 是否支持多选
