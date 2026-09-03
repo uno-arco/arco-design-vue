@@ -3,6 +3,7 @@ import { FieldString } from '../_utils/types';
 import { Size } from '../_utils/constant';
 import { VirtualListProps } from '../_components/virtual-list-v2/interface';
 import { TriggerProps } from '../trigger';
+import type { InputTagMaxTagCount } from '../input-tag/interface';
 
 export interface SelectProps {
   options?: (
@@ -35,7 +36,7 @@ export interface SelectProps {
   allowClear?: boolean;
   allowSearch?: boolean | { retainInputValue?: boolean };
   allowCreate?: boolean;
-  maxTagCount?: number;
+  maxTagCount?: InputTagMaxTagCount;
   popupContainer?: string | HTMLElement;
   bordered?: boolean;
   popupVisible?: boolean;

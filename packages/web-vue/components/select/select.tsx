@@ -50,6 +50,7 @@ import { useFormItem } from '../_hooks/use-form-item';
 import { debounce } from '../_utils/debounce';
 import { SelectViewValue } from '../_components/select-view/interface';
 import { ScrollbarProps } from '../scrollbar';
+import type { InputTagMaxTagCount } from '../input-tag/interface';
 
 const DEFAULT_FIELD_NAMES = {
   value: 'value',
@@ -186,11 +187,11 @@ export default defineComponent({
       default: false,
     },
     /**
-     * @zh 多选模式下，最多显示的标签数量。0 表示不限制
-     * @en In multi-select mode, the maximum number of labels displayed. 0 means unlimited
+     * @zh 多选模式下，最多显示的标签数量。0 表示不限制。传入对象时可开启 `showPopover`（对齐 Arco React）
+     * @en In multi-select mode, the maximum number of labels displayed. 0 means unlimited. Pass an object with `showPopover` (aligned with Arco React)
      */
     maxTagCount: {
-      type: Number,
+      type: [Number, Object] as PropType<InputTagMaxTagCount>,
       default: 0,
     },
     /**

@@ -125,6 +125,7 @@ import { Size } from '../_utils/constant';
 import { debounce } from '../_utils/debounce';
 import { useFormItem } from '../_hooks/use-form-item';
 import { VirtualListProps } from '../_components/virtual-list-v2/interface';
+import type { InputTagMaxTagCount } from '../input-tag/interface';
 
 export default defineComponent({
   name: 'Cascader',
@@ -305,11 +306,11 @@ export default defineComponent({
       type: [String, Object] as PropType<string | HTMLElement>,
     },
     /**
-     * @zh 多选模式下，最多显示的标签数量。0 表示不限制
-     * @en In multi-select mode, the maximum number of labels displayed. 0 means unlimited
+     * @zh 多选模式下，最多显示的标签数量。0 表示不限制。传入对象时可开启 `showPopover`（对齐 Arco React）
+     * @en In multi-select mode, the maximum number of labels displayed. 0 means unlimited. Pass an object with `showPopover` (aligned with Arco React)
      */
     maxTagCount: {
-      type: Number,
+      type: [Number, Object] as PropType<InputTagMaxTagCount>,
       default: 0,
     },
     /**

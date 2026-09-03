@@ -1,5 +1,17 @@
 import { TagProps } from '../tag';
 import { FieldString } from '../_utils/types';
+import type { PopoverProps } from '../popover';
+
+/**
+ * Aligns with Arco React `maxTagCount` object form (without `responsive` for now).
+ * @see https://arco.design/react/components/select
+ */
+export type InputTagMaxTagCount =
+  | number
+  | {
+      count: number;
+      showPopover?: boolean | PopoverProps;
+    };
 
 export interface TagData {
   /**
