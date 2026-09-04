@@ -121,10 +121,7 @@ const install = (app: App, options?: ArcoIconOptions) => {
   }
 };
 
-const ArcoVueIcon = {
-  ...icons,
-  install
-};
+const ArcoVueIcon = Object.assign({ install }, icons);
 
 export default ArcoVueIcon;
 `;

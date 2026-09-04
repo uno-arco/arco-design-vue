@@ -1,4 +1,5 @@
 export { default } from './arco-vue';
+export { makeInstaller } from './make-installer';
 export { addI18nMessages, useLocale, getLocale } from './locale';
 export type { Size, Status, MessageType, Direction } from './_utils/constant';
 export { default as Affix } from './affix';

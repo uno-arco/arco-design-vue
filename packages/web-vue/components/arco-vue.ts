@@ -1,6 +1,6 @@
-import type { App, Plugin } from 'vue';
-import type { ArcoOptions } from './_utils/types';
+import type { Plugin } from 'vue';
 import { addI18nMessages, useLocale, getLocale } from './locale';
+import { makeInstaller } from './make-installer';
 import Affix from './affix';
 import Alert from './alert';
 import Anchor, { AnchorLink } from './anchor';
@@ -102,7 +102,7 @@ import Watermark from './watermark';
 
 import { useFormItem } from './_hooks/use-form-item';
 
-const components: Record<string, Plugin> = {
+const components: Plugin[] = [
   Button,
   Link,
   Typography,
@@ -177,25 +177,94 @@ const components: Record<string, Plugin> = {
   OverflowList,
   Watermark,
   VerificationCode,
-};
+];
 
-const install = (app: App, options?: ArcoOptions) => {
-  for (const key of Object.keys(components)) {
-    app.use(components[key], options);
-  }
-};
+const installer = makeInstaller(components);
 
-// Do not annotate as `Record<string, any>` — Vue 3.5+ `app.use` requires a Plugin
-// (object with `install` or a function). A bare Record fails type-checking.
-const ArcoVue = {
-  ...components,
+// Attach components / helpers onto the installer (same surface as before).
+// Start from `makeInstaller` result so the default export is a real Plugin
+// (like Element Plus), not `Record<string, any>`.
+const ArcoVue = Object.assign(installer, {
+  Button,
+  Link,
+  Typography,
+  Divider,
+  Grid,
+  Layout,
+  Space,
+  Avatar,
+  Badge,
+  Calendar,
+  Card,
+  Carousel,
+  Collapse,
+  Comment,
+  ColorPicker,
+  Descriptions,
+  Empty,
+  Image,
+  Scrollbar,
+  List,
+  Popover,
+  Statistic,
+  Table,
+  Tabs,
+  Tag,
+  Timeline,
+  Tooltip,
+  AutoComplete,
+  Cascader,
+  Checkbox,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  InputTag,
+  Mention,
+  Radio,
+  Rate,
+  Select,
+  Slider,
+  Switch,
+  Textarea,
+  TimePicker,
+  Transfer,
+  Tree,
+  Upload,
+  TreeSelect,
+  Alert,
+  Drawer,
+  Message,
+  Modal,
+  Notification,
+  Popconfirm,
+  Progress,
+  Result,
+  Spin,
+  Skeleton,
+  Breadcrumb,
+  Dropdown,
+  Menu,
+  PageHeader,
+  Pagination,
+  Steps,
+  Affix,
+  Anchor,
+  BackTop,
+  ConfigProvider,
+  ResizeBox,
+  Trigger,
+  Split,
+  Icon,
+  OverflowList,
+  Watermark,
+  VerificationCode,
   // Historical reason
   Alter: Alert,
   AnchorLink,
   AvatarGroup,
   BreadcrumbItem,
   ButtonGroup,
-  Calendar,
   CardMeta,
   CardGrid,
   CarouselItem,
@@ -249,11 +318,12 @@ const ArcoVue = {
   TypographyParagraph,
   TypographyTitle,
   TypographyText,
-  install,
   addI18nMessages,
   useLocale,
   getLocale,
   useFormItem,
-};
+});
 
+export { makeInstaller };
+export const { install } = ArcoVue;
 export default ArcoVue;
