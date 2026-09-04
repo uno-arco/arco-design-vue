@@ -185,7 +185,9 @@ const install = (app: App, options?: ArcoOptions) => {
   }
 };
 
-const ArcoVue: Record<string, any> = {
+// Do not annotate as `Record<string, any>` — Vue 3.5+ `app.use` requires a Plugin
+// (object with `install` or a function). A bare Record fails type-checking.
+const ArcoVue = {
   ...components,
   // Historical reason
   Alter: Alert,
