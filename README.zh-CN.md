@@ -10,7 +10,7 @@
 
 **不是**字节跳动 / Arco Design 官方项目。在 MIT 协议下继续维护 [arco-design/arco-design-vue](https://github.com/arco-design/arco-design-vue)：组件名（`a-button`）、CSS 前缀（`arco-`）、主题 token 都保持兼容。
 
-# 为什么选 Uno Arco（`2.60.0`）
+# 为什么选 Uno Arco（`2.60.1`）
 
 相对官方最后的 `2.58.x`，本 fork 主攻未合并 bugfix，并升级到 Vue 3.5 / Vite 7 工具链。亮点包括：
 
@@ -35,7 +35,7 @@ pnpm add @uno-arco/web-vue
 ```json
 {
   "dependencies": {
-    "@arco-design/web-vue": "npm:@uno-arco/web-vue@^2.60.0"
+    "@arco-design/web-vue": "npm:@uno-arco/web-vue@^2.60.1"
   }
 }
 ```

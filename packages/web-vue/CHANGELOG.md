@@ -2,6 +2,14 @@
 changelog: true
 ```
 
+## 2.60.1
+
+`2026-09-04`
+
+### 🐛 BugFix
+
+- **types:** Align default export with Element Plus–style `makeInstaller` + `Object.assign`, fixing Vue 3.5 `app.use(ArcoVue)` TS2345 (`Record<string, any>` is not assignable to `Plugin`).
+
 ## 2.60.0
 
 `2026-09-03`

@@ -10,7 +10,7 @@
 
 This is **not** an official ByteDance / Arco Design project. It continues [arco-design/arco-design-vue](https://github.com/arco-design/arco-design-vue) under MIT: same component names (`a-button`), same CSS prefix (`arco-`), same theme tokens.
 
-# Why Uno Arco (`2.60.0`)
+# Why Uno Arco (`2.60.1`)
 
 Relative to the last official `2.58.x` line, this fork focuses on unmerged bugfixes and a modern toolchain (Vue 3.5 / Vite 7). Highlights:
 
@@ -35,7 +35,7 @@ Drop-in for existing apps (keep old import paths):
 ```json
 {
   "dependencies": {
-    "@arco-design/web-vue": "npm:@uno-arco/web-vue@^2.60.0"
+    "@arco-design/web-vue": "npm:@uno-arco/web-vue@^2.60.1"
   }
 }
 ```

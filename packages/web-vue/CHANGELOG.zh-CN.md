@@ -2,6 +2,14 @@
 changelog: true
 ```
 
+## 2.60.1
+
+`2026-09-04`
+
+### 🐛 问题修复
+
+- **types:** 默认导出改为 Element Plus 风格的 `makeInstaller` + `Object.assign`，修复 Vue 3.5 下 `app.use(ArcoVue)` 报 `Record<string, any>` 无法赋值给 `Plugin`（TS2345）。
+
 ## 2.60.0
 
 `2026-09-03`
