@@ -78,7 +78,7 @@ Reply in **简体中文**, concise markdown:
 PR files/diff:
 ${diffText}`;
 
-  const model = 'gemini-2.0-flash';
+  const model = 'gemini-3.6-flash';
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`;
   const aiRes = await fetch(url, {
     method: 'POST',
