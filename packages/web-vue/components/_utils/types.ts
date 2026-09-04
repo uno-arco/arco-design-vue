@@ -1,4 +1,4 @@
-import type { App, RenderFunction } from 'vue';
+import type { App, Plugin, RenderFunction } from 'vue';
 import { VNode } from 'vue';
 
 export interface ArcoOptions {
@@ -41,6 +41,7 @@ export type EmitFn2<
 export type EmitType<T> = T | T[];
 
 export type SFCWithInstall<T, D = Record<string, never>> = T &
+  Plugin &
   D & {
     install: (app: App, opt?: ArcoOptions) => void;
   };
