@@ -937,6 +937,7 @@ exports[`<table> demo: > render [ellipsis] correctly 1`] = `
               <tr class="arco-table-tr">
                 <th class="arco-table-th"><span class="arco-table-cell arco-table-cell-align-left"><span class="arco-auto-tooltip arco-table-th-title"><span class="arco-auto-tooltip-content">Name</span></span>
                   <!---->
+                  <!---->
                   <!----></span>
                   <!---->
                   <!---->
@@ -955,6 +956,7 @@ exports[`<table> demo: > render [ellipsis] correctly 1`] = `
                 </th>
                 <th class="arco-table-th"><span class="arco-table-cell arco-table-cell-align-left"><span class="arco-auto-tooltip arco-table-th-title"><span class="arco-auto-tooltip-content">Email</span></span>
                   <!---->
+                  <!---->
                   <!----></span>
                   <!---->
                   <!---->
@@ -963,38 +965,58 @@ exports[`<table> demo: > render [ellipsis] correctly 1`] = `
             </thead>
             <tbody>
               <tr class="arco-table-tr">
-                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">Jane Doe</span></span></span></td>
+                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">Jane Doe</span></span>
+                  <!----></span>
+                </td>
                 <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-table-td-content">23000</span></span></td>
                 <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-table-td-content arco-table-text-ellipsis">32 Park Road, London</span></span></td>
-                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">jane.doe@example.com</span></span></span></td>
+                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">jane.doe@example.com</span></span>
+                  <!----></span>
+                </td>
               </tr>
               <!---->
               <tr class="arco-table-tr">
-                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">Alisa Ross</span></span></span></td>
+                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">Alisa Ross</span></span>
+                  <!----></span>
+                </td>
                 <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-table-td-content">25000</span></span></td>
                 <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-table-td-content arco-table-text-ellipsis">35 Park Road, London</span></span></td>
-                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">alisa.ross@example.com</span></span></span></td>
+                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">alisa.ross@example.com</span></span>
+                  <!----></span>
+                </td>
               </tr>
               <!---->
               <tr class="arco-table-tr">
-                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">Kevin Sandra</span></span></span></td>
+                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">Kevin Sandra</span></span>
+                  <!----></span>
+                </td>
                 <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-table-td-content">22000</span></span></td>
                 <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-table-td-content arco-table-text-ellipsis">31 Park Road, London</span></span></td>
-                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">kevin.sandra@example.com</span></span></span></td>
+                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">kevin.sandra@example.com</span></span>
+                  <!----></span>
+                </td>
               </tr>
               <!---->
               <tr class="arco-table-tr">
-                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">Ed Hellen</span></span></span></td>
+                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">Ed Hellen</span></span>
+                  <!----></span>
+                </td>
                 <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-table-td-content">17000</span></span></td>
                 <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-table-td-content arco-table-text-ellipsis">42 Park Road, London</span></span></td>
-                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">ed.hellen@example.com</span></span></span></td>
+                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">ed.hellen@example.com</span></span>
+                  <!----></span>
+                </td>
               </tr>
               <!---->
               <tr class="arco-table-tr">
-                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">William Smith</span></span></span></td>
+                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">William Smith</span></span>
+                  <!----></span>
+                </td>
                 <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-table-td-content">27000</span></span></td>
                 <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-table-td-content arco-table-text-ellipsis">62 Park Road, London</span></span></td>
-                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">william.smith@example.com</span></span></span></td>
+                <td class="arco-table-td"><span class="arco-table-cell arco-table-cell-align-left"><!----><!----><span class="arco-auto-tooltip arco-table-td-content"><span class="arco-auto-tooltip-content">william.smith@example.com</span></span>
+                  <!----></span>
+                </td>
               </tr>
               <!---->
             </tbody>
