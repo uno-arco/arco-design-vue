@@ -2,6 +2,16 @@
 changelog: true
 ```
 
+## 2.60.2
+
+`2026-11-03`
+
+### 🐛 问题修复
+
+- **input / select:** 修复 IME 组合输入过程中 `compositionupdate` 把搜索锁死的问题。([#3679](https://github.com/arco-design/arco-design-vue/issues/3679))
+- **table / tooltip:** 可编辑单元格开启 `ellipsis` + `tooltip` 时不再因 AutoTooltip 重挂载触发 `getBoundingClientRect` 空指针。([#3681](https://github.com/arco-design/arco-design-vue/issues/3681))
+- **table:** 总结行 + 冻结列时恢复固定列上方分隔边框。([#3680](https://github.com/arco-design/arco-design-vue/issues/3680))
+
 ## 2.60.1
 
 `2026-09-04`

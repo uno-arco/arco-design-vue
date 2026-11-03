@@ -2,6 +2,16 @@
 changelog: true
 ```
 
+## 2.60.2
+
+`2026-11-03`
+
+### 🐛 BugFix
+
+- **input / select:** Prevent IME `compositionupdate` from locking search input. ([#3679](https://github.com/arco-design/arco-design-vue/issues/3679))
+- **table / tooltip:** Avoid `getBoundingClientRect` crash when editable cells remount AutoTooltip with `ellipsis` + `tooltip`. ([#3681](https://github.com/arco-design/arco-design-vue/issues/3681))
+- **table:** Restore the summary separator border on sticky fixed columns. ([#3680](https://github.com/arco-design/arco-design-vue/issues/3680))
+
 ## 2.60.1
 
 `2026-09-04`
